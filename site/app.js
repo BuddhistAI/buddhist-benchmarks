@@ -1,3 +1,14 @@
+// Overview cards: switch the ranking between the mean and each model.
+document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
+  tabs.addEventListener('click', (ev) => {
+    const b = ev.target.closest('button');
+    if (!b) return;
+    const lists = tabs.parentElement.querySelectorAll('ol.rank');
+    tabs.querySelectorAll('button').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+    lists.forEach((l, i) => { l.hidden = String(i) !== b.dataset.i; });
+  });
+});
+
 // Renders a task page from the JSON embedded in it (built by scripts/build_leaderboards.py).
 (function () {
   const node = document.getElementById('data');
@@ -10,123 +21,137 @@
   const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const $ = (id) => document.getElementById(id);
   const metricName = (k) => k.replace(/_/g, ' ');
+  const shortModel = (m) => D.models[m].name.replace('Claude ', '');
+  const allModels = Object.keys(D.models).sort(byTier);
 
-  const state = { version: D.versions[0], split: 'all', models: new Set(Object.keys(D.models)), reference: true };
+  const state = { version: D.versions[0], split: 'all', view: allModels.length > 1 ? 'mean' : allModels[0], reference: true };
+  const KEY = 'lb:' + D.task.id + ':' + D.language;
   try {
-    const saved = JSON.parse(localStorage.getItem('lb:' + D.task.id + ':' + D.language) || '{}');
+    const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
     if (saved.split) state.split = saved.split;
+    if (saved.view && (saved.view === 'mean' || D.models[saved.view])) state.view = saved.view;
     if (typeof saved.reference === 'boolean') state.reference = saved.reference;
   } catch (e) { /* storage unavailable */ }
   const save = () => {
-    try { localStorage.setItem('lb:' + D.task.id + ':' + D.language, JSON.stringify({ split: state.split, reference: state.reference })); } catch (e) { /* ignore */ }
+    try { localStorage.setItem(KEY, JSON.stringify({ split: state.split, view: state.view, reference: state.reference })); } catch (e) { /* ignore */ }
   };
 
-  // Controls
-  $('f-version').innerHTML = D.versions.map((v) => `<option value="${esc(v)}">${esc(D.benchmarks[v].name)}</option>`).join('');
   const splits = Object.keys(D.rows[0].scores).sort((a, b) => (a === 'all' ? -1 : b === 'all' ? 1 : 0));
   if (!splits.includes(state.split)) state.split = 'all';
-  $('f-split').innerHTML = splits.map((s) => `<option value="${esc(s)}"${s === state.split ? ' selected' : ''}>${esc(splitName(s))}</option>`).join('');
-  $('f-models').insertAdjacentHTML('beforeend', Object.keys(D.models).sort(byTier).map((m) =>
-    `<label><input type="checkbox" value="${esc(m)}" checked> ${esc(D.models[m].name)}</label>`).join(''));
+  const views = (allModels.length > 1 ? [['mean', 'Mean of models']] : []).concat(allModels.map((m) => [m, D.models[m].name]));
+
+  function tabs(id, items, current, onpick) {
+    const el = $(id);
+    el.innerHTML = items.map(([k, label]) => `<button role="tab" data-k="${esc(k)}" aria-selected="${k === current}">${esc(label)}</button>`).join('');
+    el.onclick = (ev) => {
+      const b = ev.target.closest('button');
+      if (!b) return;
+      el.querySelectorAll('button').forEach((x) => x.setAttribute('aria-selected', String(x === b)));
+      onpick(b.dataset.k);
+    };
+  }
+  tabs('t-view', views, state.view, (k) => { state.view = k; save(); render(); });
+  tabs('t-split', splits.map((s) => [s, splitName(s)]), state.split, (k) => { state.split = k; save(); render(); });
+  if (D.versions.length > 1) {
+    $('f-version-wrap').hidden = false;
+    $('f-version').innerHTML = D.versions.map((v) => `<option value="${esc(v)}">${esc(D.benchmarks[v].name)}</option>`).join('');
+    $('f-version').onchange = (ev) => { state.version = ev.target.value; render(); };
+  }
   $('f-reference').checked = state.reference;
-  $('f-version').onchange = (ev) => { state.version = ev.target.value; render(); };
-  $('f-split').onchange = (ev) => { state.split = ev.target.value; save(); render(); };
   $('f-reference').onchange = (ev) => { state.reference = ev.target.checked; save(); render(); };
-  $('f-models').onchange = (ev) => {
-    if (ev.target.checked) state.models.add(ev.target.value); else state.models.delete(ev.target.value);
-    render();
-  };
 
   const skill = (v) => D.skills[v] || {};
   const badge = (v) => {
     const st = skill(v).status;
-    return st ? `<span class="badge ${esc(st)}">${esc(st)}</span>` : '';
-  };
-  const cell = (m, best) => {
-    if (!m) return '<span class="muted">–</span>';
-    const pct = Math.max(0, Math.min(100, m.mean * 100));
-    return `<div class="score">${m.mean.toFixed(3)}${m.runs && m.runs.length > 1 ? ` <span class="pm">± ${m.std.toFixed(3)}</span>` : ''}</div><div class="bar"><i style="width:${pct}%"></i></div>`;
+    return st ? `<span class="badge ${esc(st)}">${st === 'promoted' ? 'best skill' : esc(st)}</span>` : '';
   };
   const cost = (c) => (c == null ? '<span class="muted">not recorded</span>' : '$' + c.toFixed(2));
-
-  function visibleRows() {
-    return D.rows.filter((r) => r.data_version === state.version && state.models.has(r.model) &&
-      (state.reference || skill(r.variant).status !== 'reference'));
-  }
+  const pm = (m) => (m && m.runs && m.runs.length > 1 ? `± ${m.std.toFixed(3)}` : '');
+  const fmt = (m) => (m ? m.mean.toFixed(3) + (pm(m) ? `<div class="sub">${pm(m)}</div>` : '') : '–');
 
   function renderBenchmark() {
     const b = D.benchmarks[state.version];
     const subsets = Object.entries(b.subsets).map(([k, n]) => `${n} ${esc(splitName(k).toLowerCase())}`).join(', ');
-    $('benchmark').innerHTML = `<h2>Benchmark: <a href="${esc(b.url)}">${esc(b.name)}</a></h2>
+    $('benchmark').innerHTML = `<p class="kicker">Benchmark</p><h2><a href="${esc(b.url)}">${esc(b.name)}</a></h2>
 <p>${b.purpose ? esc(b.purpose) : ''}</p>
 <dl class="facts">
 <div><dt>Data set</dt><dd><a href="${esc(b.url)}"><code>${esc(b.folder)}</code></a></dd></div>
 <div><dt>Version</dt><dd>${esc(b.version)} <span class="muted">(tag <code>${esc(b.tag)}</code>)</span></dd></div>
 <div><dt>Items</dt><dd>${b.items != null ? esc(b.items) : '–'}${subsets ? ` <span class="muted">(${subsets})</span>` : ''}</dd></div>
 <div><dt>Scorer</dt><dd>${esc(b.scorer_version.join(', '))}, headline <code>${esc(HL)}</code></dd></div>
-</dl>${b.note ? `<p class="sub">${esc(b.note)}</p>` : ''}
-<p class="sub">Scores are only compared within one benchmark version. A new version means re-running the skills.</p>`;
+</dl>${b.note ? `<p class="sub">${esc(b.note)}</p>` : ''}`;
   }
 
   function render() {
     renderBenchmark();
-    const rows = visibleRows();
+    const rows = D.rows.filter((r) => r.data_version === state.version && (state.reference || skill(r.variant).status !== 'reference'));
     const models = [...new Set(rows.map((r) => r.model))].sort(byTier);
-    const variants = [...new Set(rows.map((r) => r.variant))];
     const get = (v, m) => rows.find((r) => r.variant === v && r.model === m);
-    const val = (r) => (r && r.scores[state.split] && r.scores[state.split][HL] ? r.scores[state.split][HL].mean : null);
-    const avg = (v) => {
-      const xs = models.map((m) => val(get(v, m))).filter((x) => x != null);
-      return xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : -1;
+    const sc = (r, split = state.split) => (r && r.scores[split] && r.scores[split][HL]) || null;
+    const variants = [...new Set(rows.map((r) => r.variant))];
+    const score = (v) => {
+      if (state.view === 'mean') {
+        const xs = models.map((m) => sc(get(v, m))).filter(Boolean).map((x) => x.mean);
+        return xs.length ? xs.reduce((a, b) => a + b, 0) / xs.length : null;
+      }
+      const x = sc(get(v, state.view));
+      return x ? x.mean : null;
     };
-    variants.sort((a, b) => avg(b) - avg(a));
-    const bestPer = {};
-    models.forEach((m) => { bestPer[m] = Math.max(...variants.map((v) => val(get(v, m)) ?? -1)); });
+    const list = variants.map((v) => ({ v, s: score(v) })).filter((x) => x.s != null).sort((a, b) => b.s - a.s);
+    const lo = Math.min(...list.map((x) => x.s)) - 0.05, hi = Math.max(...list.map((x) => x.s));
+    const width = (x) => (hi === lo ? 100 : 12 + 88 * (x - lo) / (hi - lo));
 
-    // Matrix
-    $('matrix-caption').textContent = `${metricName(HL)} on the ${splitName(state.split).toLowerCase()} split of ${D.benchmarks[state.version].name}. Mean ± standard deviation over each run's repeats; best per model in green. Sorted by the mean over the models shown.`;
-    let h = '<thead><tr><th>Skill</th>' + models.map((m) => `<th>${esc(D.models[m].name)}</th>`).join('') +
-      (models.length > 1 ? '<th class="num">Mean</th>' : '') + '</tr></thead><tbody>';
-    if (!variants.length) h += `<tr><td colspan="${models.length + 2}" class="muted">No runs match these filters.</td></tr>`;
-    variants.forEach((v) => {
+    const mean = state.view === 'mean';
+    let h = '<thead><tr><th class="num">Rank</th><th>Skill</th><th>' + esc(metricName(HL)) + `<div class="sub">${esc(splitName(state.split))}${mean ? ', mean of models' : ''}</div></th>`;
+    h += mean ? models.map((m) => `<th class="num">${esc(shortModel(m))}</th>`).join('')
+      : '<th class="num">Std. dev.</th>' + Object.keys(rows[0].scores.all).filter((k) => k !== HL).map((k) => `<th class="num">${esc(metricName(k))}<div class="sub">All</div></th>`).join('') + '<th class="num">Repeats</th><th>Run</th>';
+    h += '<th>Made by</th></tr></thead><tbody>';
+    let rank = 0;
+    list.forEach(({ v, s }) => {
+      const ref = skill(v).status === 'reference';
+      if (!ref) rank += 1;
       const any = rows.find((r) => r.variant === v);
-      h += `<tr><td><strong>${esc(v)}</strong> <span class="muted">${esc(any.skill_version)}</span>${badge(v)}</td>`;
-      models.forEach((m) => {
-        const r = get(v, m);
-        const x = val(r);
-        h += `<td class="cell${x != null && x === bestPer[m] ? ' best' : ''}">${cell(r && r.scores[state.split] && r.scores[state.split][HL], false)}</td>`;
-      });
-      if (models.length > 1) h += `<td class="num">${avg(v) >= 0 ? avg(v).toFixed(3) : '–'}</td>`;
-      h += '</tr>';
+      const r = mean ? null : get(v, state.view);
+      h += `<tr class="${ref ? 'ref' : 'r' + (rank <= 3 ? rank : '')}">
+<td class="num"><span class="pos" title="${ref ? 'Reference run: not ranked, it can\'t ship as this task\'s skill' : ''}">${ref ? '–' : rank}</span></td>
+<td><a class="skill" href="#skill-${esc(v)}">${esc(v)}</a> <span class="muted">${esc(any.skill_version)}</span>${badge(v)}</td>
+<td class="scorecell"><span class="big">${s.toFixed(3)}</span><span class="bar"><i style="width:${width(s).toFixed(0)}%"></i></span></td>`;
+      h += mean ? models.map((m) => `<td class="num">${sc(get(v, m)) ? sc(get(v, m)).mean.toFixed(3) : '–'}</td>`).join('')
+        : `<td class="num muted nowrap">${pm(sc(r)) || '–'}</td>` + Object.keys(r.scores.all).filter((k) => k !== HL).map((k) => `<td class="num">${r.scores[state.split] && r.scores[state.split][k] ? r.scores[state.split][k].mean.toFixed(3) : '–'}</td>`).join('') +
+          `<td class="num">${esc(r.repeats)}</td><td><a href="${esc(r.run_url)}">run</a></td>`;
+      h += `<td class="sub">${esc(skill(v).made_by || any.by || '')}</td></tr>`;
     });
-    $('matrix').innerHTML = h + '</tbody>';
+    if (!list.length) h += '<tr><td colspan="9" class="muted">No runs match.</td></tr>';
+    $('ranked').innerHTML = h + '</tbody>';
+    $('ranked-caption').textContent = `${list.length} skills on ${D.benchmarks[state.version].name}. Higher is better. ` +
+      (mean ? `Each model's score is the mean over its runs; the ranking uses the mean of ${models.map(shortModel).join(' and ')}.` : `Mean over ${shortModel(state.view)}'s repeats.`) +
+      ' Reference runs are shown for comparison but not ranked.';
 
-    // Per-model tables
-    let pm = '';
+    // Every metric and run, per model
+    let out = '';
     models.forEach((m) => {
-      const mrows = rows.filter((r) => r.model === m).sort((a, b) => (val(b) ?? -1) - (val(a) ?? -1));
+      const mrows = rows.filter((r) => r.model === m).sort((a, b) => (sc(b, 'all') || { mean: -1 }).mean - (sc(a, 'all') || { mean: -1 }).mean);
       const metrics = Object.keys(mrows[0].scores.all);
-      pm += `<div class="permodel"><h3>${esc(D.models[m].name)} <span class="code">${esc(m)}</span></h3><div class="table-scroll"><table class="board"><thead><tr><th class="num">Rank</th><th>Skill</th>` +
+      out += `<h3>${esc(D.models[m].name)} <span class="code">${esc(m)}</span></h3><div class="table-scroll"><table class="board"><thead><tr><th>Skill</th>` +
         splits.map((s) => `<th class="num">${esc(metricName(HL))}<div class="sub">${esc(splitName(s))}</div></th>`).join('') +
         metrics.filter((k) => k !== HL).map((k) => `<th class="num">${esc(metricName(k))}<div class="sub">All</div></th>`).join('') +
-        '<th>Cost</th><th>Repeats</th><th>Date</th><th>Run</th></tr></thead><tbody>';
-      mrows.forEach((r, i) => {
-        pm += `<tr><td class="num">${i + 1}</td><td><strong>${esc(r.variant)}</strong> <span class="muted">${esc(r.skill_version)}</span>${badge(r.variant)}<div class="sub"><code>${esc(r.skill_ref)}</code></div></td>` +
-          splits.map((s) => `<td class="num">${r.scores[s] && r.scores[s][HL] ? fmt(r.scores[s][HL]) : '–'}</td>`).join('') +
+        '<th>Cost</th><th>Date</th><th>Skill ref</th><th>Run</th></tr></thead><tbody>';
+      mrows.forEach((r) => {
+        out += `<tr><td><strong>${esc(r.variant)}</strong> <span class="muted">${esc(r.skill_version)}</span></td>` +
+          splits.map((s) => `<td class="num">${fmt(r.scores[s] && r.scores[s][HL])}</td>`).join('') +
           metrics.filter((k) => k !== HL).map((k) => `<td class="num">${fmt(r.scores.all[k])}</td>`).join('') +
-          `<td>${cost(r.cost_usd)}</td><td class="num">${esc(r.repeats)}</td><td class="nowrap">${esc(r.date)}</td><td><a href="${esc(r.run_url)}">run</a></td></tr>`;
+          `<td>${cost(r.cost_usd)}</td><td class="nowrap">${esc(r.date)}</td><td><code class="small">${esc(r.skill_ref)}</code></td><td><a href="${esc(r.run_url)}">run</a></td></tr>`;
       });
-      pm += '</tbody></table></div></div>';
+      out += '</tbody></table></div>';
     });
-    $('per-model').innerHTML = pm || '<p class="muted">No runs match these filters.</p>';
+    $('per-model').innerHTML = out;
   }
-  const fmt = (m) => m.mean.toFixed(3) + (m.runs && m.runs.length > 1 ? `<div class="sub">± ${m.std.toFixed(3)}</div>` : '');
 
   // Skill cards (static)
   const order = { promoted: 0, challenger: 1, baseline: 2, reference: 3 };
   $('skills').innerHTML = Object.entries(D.skills).sort((a, b) => (order[a[1].status] ?? 9) - (order[b[1].status] ?? 9)).map(([v, s]) => {
     const versions = [...new Set(D.rows.filter((r) => r.variant === v).map((r) => r.skill_version))].join(', ');
-    return `<div class="card"><h3>${esc(v)} <span class="muted">${esc(versions)}</span>${badge(v)}</h3>
+    return `<div class="card" id="skill-${esc(v)}"><h3>${esc(v)} <span class="muted">${esc(versions)}</span>${badge(v)}</h3>
 <p>${esc(s.approach || '')}</p>
 <p class="sub">${s.ships ? 'Can ship as this task\'s skill.' : 'Can\'t ship as it is; shown for comparison.'}${s.made_by ? ' Made by ' + esc(s.made_by) + '.' : ''}</p>
 <p class="small">${s.source ? `<a href="${esc(s.source)}">Source at the tested commit</a>` : ''}${D.promoted && D.promoted.variant === v ? ` · <a href="${esc(D.promoted.skill)}">Installed version</a>` : ''}</p></div>`;

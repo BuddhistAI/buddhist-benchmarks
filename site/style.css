@@ -106,3 +106,76 @@ footer { border-top: 1px solid var(--border); color: var(--muted); font-size: 0.
 .facts dt { font-size: 0.78rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.04em; }
 .facts dd { margin: 2px 0 0; }
 a.plain { color: var(--text); text-decoration: none; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.88em; } a.plain:hover { text-decoration: underline; }
+
+/* Overview: arena-style cards */
+.stats { display: flex; flex-wrap: wrap; gap: 10px; list-style: none; padding: 0; margin: 16px 0 0; }
+.stats li { background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 4px 14px; color: var(--muted); font-size: 0.9rem; }
+.stats b { color: var(--text); font-size: 1.05rem; margin-right: 4px; font-variant-numeric: tabular-nums; }
+.lb-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; margin-top: 24px; }
+.lb-card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 16px 16px 12px; display: flex; flex-direction: column; box-shadow: 0 1px 2px rgba(0,0,0,0.04); }
+.lb-card header h2 { margin: 2px 0 2px; font-size: 1.2rem; }
+.lb-card header h2 a { color: var(--text); text-decoration: none; }
+.lb-card header h2 a:hover { color: var(--accent); }
+.lb-card header .sub { margin: 0; }
+.kicker { margin: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.kicker code { text-transform: none; letter-spacing: 0; }
+.tabs { display: flex; gap: 4px; margin: 14px 0 6px; padding: 3px; background: var(--surface-2); border-radius: 9px; width: fit-content; max-width: 100%; overflow-x: auto; }
+.tabs button { font: inherit; font-size: 0.82rem; border: 0; background: transparent; color: var(--muted); padding: 4px 10px; border-radius: 7px; cursor: pointer; white-space: nowrap; }
+.tabs button[aria-selected="true"] { background: var(--surface); color: var(--text); font-weight: 600; box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+ol.rank { list-style: none; margin: 4px 0 8px; padding: 0; }
+ol.rank li { display: grid; grid-template-columns: 30px 1fr auto; align-items: center; gap: 10px; padding: 8px 4px; border-bottom: 1px solid var(--border); }
+ol.rank li:last-child { border-bottom: 0; }
+ol.rank .pos { width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; font-size: 0.82rem; font-weight: 700; color: var(--muted); background: var(--surface-2); }
+ol.rank li.r1 .pos { background: #e8b931; color: #3a2a00; }
+ol.rank li.r2 .pos { background: #c4c8ce; color: #23262a; }
+ol.rank li.r3 .pos { background: #cf8f5a; color: #2e1700; }
+ol.rank .who { min-width: 0; }
+ol.rank .name { font-weight: 600; overflow-wrap: anywhere; }
+ol.rank .bar { display: block; margin-top: 5px; }
+ol.rank li.r1 .bar > i { background: var(--good); }
+ol.rank .val { font-variant-numeric: tabular-nums; font-weight: 700; font-size: 1.05rem; }
+ol.rank li.ref .name, ol.rank li.ref .val { color: var(--muted); }
+ol.rank li.ref .bar > i { background: var(--border); }
+.lb-card footer { margin-top: auto; padding-top: 10px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.more { font-weight: 600; text-decoration: none; font-size: 0.9rem; }
+.lb-card.soon { background: repeating-linear-gradient(135deg, var(--surface), var(--surface) 12px, var(--surface-2) 12px, var(--surface-2) 24px); }
+.soon-body { flex: 1; display: grid; place-items: center; min-height: 140px; font-size: 1.1rem; color: var(--muted); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.chips li { border: 1px dashed var(--border); border-radius: 999px; padding: 4px 12px; font-size: 0.88rem; color: var(--muted); background: var(--surface); }
+.card.how { margin-top: 28px; }
+.card.how h2 { margin-top: 0; }
+@media (max-width: 640px) { .lb-grid { grid-template-columns: 1fr; } }
+
+/* Task page: arena-style ranked table */
+.lb-card.wide { margin-top: 20px; }
+.toolbar { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: center; margin-bottom: 10px; }
+.toolbar > div { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.toolbar .tabs { margin: 0; }
+.tlabel { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+.toolbar label { font-size: 0.88rem; }
+.toolbar select { margin-left: 6px; font: inherit; color: var(--text); background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px; padding: 3px 6px; }
+.table-scroll.flat { border: 0; border-radius: 0; background: transparent; }
+table.arena thead th { background: transparent; border-bottom: 1px solid var(--border); }
+table.arena td { vertical-align: middle; }
+table.arena .pos { display: inline-grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: var(--surface-2); color: var(--muted); font-weight: 700; font-size: 0.85rem; }
+table.arena tr.r1 .pos { background: #e8b931; color: #3a2a00; }
+table.arena tr.r2 .pos { background: #c4c8ce; color: #23262a; }
+table.arena tr.r3 .pos { background: #cf8f5a; color: #2e1700; }
+table.arena .skill { font-weight: 600; color: var(--text); text-decoration: none; }
+table.arena .skill:hover { color: var(--accent); }
+table.arena .scorecell { min-width: 170px; }
+table.arena .big { font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+table.arena .scorecell .bar { display: block; margin-top: 5px; }
+table.arena tr.r1 .bar > i { background: var(--good); }
+table.arena tr.ref td { color: var(--muted); }
+table.arena tr.ref .skill { color: var(--muted); }
+table.arena tr.ref .bar > i { background: var(--border); }
+table.arena tbody tr:hover td { background: var(--surface-2); }
+.benchmark .kicker { margin-bottom: 2px; }
+.more-details { margin-top: 24px; }
+.more-details summary { cursor: pointer; font-weight: 600; font-size: 1.05rem; padding: 6px 0; }
+.more-details h3 { font-size: 1rem; margin: 18px 0 8px; }
+.toolbar > div { min-width: 0; max-width: 100%; }
+.toolbar .tabs { min-width: 0; }
+.tabs-note { margin: 12px 0 4px; }
+.lb-card.ext .badge { font-weight: 500; }

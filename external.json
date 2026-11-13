@@ -1,0 +1,18 @@
+{
+  "_comment": "Leaderboards that other organizations run, shown as cards on the overview. The site links to them and, when it can read their page, shows their current top rows. Nothing here is scored by buddhist-benchmarks.",
+  "leaderboards": [
+    {
+      "id": "bdrc-tibetan-ocr",
+      "title": "Tibetan OCR",
+      "kicker": "Tibetan · OCR models",
+      "summary": "OCR engines and models ranked on BDRC's open Tibetan OCR benchmark of woodblock prints and manuscripts.",
+      "maintainer": "BDRC",
+      "metric": "Mean character error rate",
+      "url": "https://huggingface.co/spaces/BDRC/tibetan-ocr-leaderboard",
+      "host": "Hugging Face",
+      "data_url": "https://huggingface.co/spaces/BDRC/tibetan-ocr-leaderboard/resolve/main/index.html",
+      "parser": "bdrc-ocr",
+      "top": 5
+    }
+  ]
+}

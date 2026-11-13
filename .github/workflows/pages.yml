@@ -42,7 +42,7 @@ jobs:
             git push
           fi
       - name: Build site
-        run: python3 scripts/build_leaderboards.py --site _site --bench _bench
+        run: python3 scripts/build_leaderboards.py --site _site --bench _bench --fetch-external
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
