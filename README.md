@@ -2,6 +2,9 @@
 
 Shared tasks, test data, scorers, and leaderboards for agent skills that work on Buddhist texts. The winning skill for each task and language ships in [BuddhistAI/buddhist-skills](https://github.com/BuddhistAI/buddhist-skills).
 
+- **What is measured, and what is missing:** [STATE.md](./STATE.md)
+- **Score your own tool or model:** [SUBMIT.md](./SUBMIT.md)
+
 ## Layout
 
 ```
