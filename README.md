@@ -1,0 +1,49 @@
+# Buddhist Benchmarks
+
+Shared tasks, test data, scorers, and leaderboards for agent skills that work on Buddhist texts. The winning skill for each task and language ships in [BuddhistAI/buddhist-skills](https://github.com/BuddhistAI/buddhist-skills).
+
+## Layout
+
+```
+tasks/index.json                     every task ID (active or planned)
+tasks/<task>/
+  TASK.md                            what the task is, input/output format, metrics
+  scorer/score.py                    one scorer for every language
+  data/<lang-code>/<version>/        test set: inputs/, references/, README.md
+  results/<lang-code>/LEADERBOARD.md ranked runs for that language
+  results/<lang-code>/runs/<run>/    outputs, scores.json, run.json
+```
+
+Language codes are ISO 639 / BCP 47 (`bo`, `sa`, `pi`, `lzh`, ...), as listed in buddhist-skills [`languages.json`](https://github.com/BuddhistAI/buddhist-skills/blob/main/languages.json).
+
+## Tasks
+
+| Task | Status | Languages with data |
+| --- | --- | --- |
+| [toc-extraction](./tasks/toc-extraction/TASK.md) | active | `bo` (format example only) |
+| text-cleanup, segmentation, entity-extraction, citation-mapping, text-translation-alignment, text-commentary-alignment, term-extraction, translation, translation-review | planned | |
+
+The full list is [`tasks/index.json`](./tasks/index.json).
+
+## Scoring a skill
+
+1. Run the skill on every file in `tasks/<task>/data/<code>/<version>/inputs/`, saving one output per item in the format from `TASK.md`.
+2. Score it:
+
+   ```bash
+   python3 tasks/<task>/scorer/score.py --language <code> \
+     --outputs path/to/outputs \
+     --references tasks/<task>/data/<code>/<version>/references > scores.json
+   ```
+
+3. Add a run folder and a leaderboard row (see `results/<code>/runs/README.md` in the task) and open a PR.
+
+The skill can live anywhere: buddhist-skills `drafts/`, a fork, or another organization's repo. The leaderboard cites its exact commit.
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md). Design rationale for both repos: [buddhist-skills docs/design.md](https://github.com/BuddhistAI/buddhist-skills/blob/main/docs/design.md).
+
+## License
+
+MIT. Each data set's README states where its texts come from; only add texts you are allowed to share under MIT.

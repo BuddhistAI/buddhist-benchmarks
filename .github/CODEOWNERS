@@ -1,0 +1,11 @@
+# Default owner for everything.
+*                               @ngawangtrinley
+
+# Scorers and task definitions affect every language.
+/tasks/*/TASK.md                @ngawangtrinley
+/tasks/*/scorer/                @ngawangtrinley
+
+# Language owners review data and results for their language.
+# Replace with a team (for example @BuddhistAI/tibetan) once it exists.
+/tasks/*/data/bo/               @ngawangtrinley
+/tasks/*/results/bo/            @ngawangtrinley

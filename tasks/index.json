@@ -1,0 +1,15 @@
+{
+  "_comment": "Every task ID. Skills in BuddhistAI/buddhist-skills are named <task-id>-<language>. Status: active (has TASK.md, scorer, and at least one data set) or planned.",
+  "tasks": [
+    {"id": "toc-extraction", "status": "active", "title": "Table-of-contents extraction", "summary": "List the titles, levels, and locations of a text's sections."},
+    {"id": "text-cleanup", "status": "planned", "title": "Text cleanup", "summary": "Fix OCR and input errors and normalize a text without changing its content."},
+    {"id": "segmentation", "status": "planned", "title": "Segmentation", "summary": "Split a text into sentences or translation units."},
+    {"id": "entity-extraction", "status": "planned", "title": "Entity extraction", "summary": "Find people, places, texts, and other named entities."},
+    {"id": "citation-mapping", "status": "planned", "title": "Citation mapping", "summary": "Find quotations and references and link them to their source texts."},
+    {"id": "text-translation-alignment", "status": "planned", "title": "Text-translation alignment", "summary": "Align a source text with its translation, segment by segment."},
+    {"id": "text-commentary-alignment", "status": "planned", "title": "Text-commentary alignment", "summary": "Link each root text passage to the commentary passages that explain it."},
+    {"id": "term-extraction", "status": "planned", "title": "Term extraction", "summary": "Propose glossary terms and their renderings from a source text and translation."},
+    {"id": "translation", "status": "planned", "title": "Translation", "summary": "Produce a draft translation."},
+    {"id": "translation-review", "status": "planned", "title": "Translation review", "summary": "Check a translation against its source, the glossary, and the style guide."}
+  ]
+}
