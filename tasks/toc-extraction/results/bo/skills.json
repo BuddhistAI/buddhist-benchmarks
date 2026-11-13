@@ -14,7 +14,7 @@
     "held-out-book": "9 passages of The Jewel Garland, a book no skill was tuned on. Its references are known to miss real headings, so precision is understated for every skill."
   },
   "notes": [
-    "TOC extraction (sa-bcad method) and TOC extraction (GEPA-optimized) are a near-tie: the gap in the mean of both models is within run-to-run noise, and the GEPA-optimized skill does better on the held-out book. Re-run both after the held-out references are fixed (benchmark toc-extraction/bo 1.0.1).",
+    "TOC extraction (sa-bcad method) and TOC extraction (GEPA-optimized) are a near-tie: the gap in the mean of both models is within run-to-run noise, and the GEPA-optimized skill does better on the held-out book. Re-run both after the held-out references are fixed (benchmark toc-extraction/bo 2.0.1).",
     "sabcad-outliner and sabcad-outliner+script are a .docx outliner skill run through a benchmark adapter. They can't ship as a TOC skill as they are; TOC extraction (sa-bcad method) is the shippable form."
   ],
   "skills": {

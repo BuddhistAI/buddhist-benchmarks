@@ -6,7 +6,7 @@ Headline metric: `structure_f1` (see [TASK.md](../../TASK.md)). Higher is better
 
 Best skill (installed from buddhist-skills): [`toc-extraction` skill](https://github.com/BuddhistAI/buddhist-skills/tree/main/skills/toc-extraction-tibetan) 1.0.0 (variant sabcad-outliner-toc), promoted 2026-11-13. Full report: [REPORT.md](https://github.com/BuddhistAI/toc-extraction-tibetan/blob/main/REPORT.md).
 
-- TOC extraction (sa-bcad method) and TOC extraction (GEPA-optimized) are a near-tie: the gap in the mean of both models is within run-to-run noise, and the GEPA-optimized skill does better on the held-out book. Re-run both after the held-out references are fixed (benchmark toc-extraction/bo 1.0.1).
+- TOC extraction (sa-bcad method) and TOC extraction (GEPA-optimized) are a near-tie: the gap in the mean of both models is within run-to-run noise, and the GEPA-optimized skill does better on the held-out book. Re-run both after the held-out references are fixed (benchmark toc-extraction/bo 2.0.1).
 - sabcad-outliner and sabcad-outliner+script are a .docx outliner skill run through a benchmark adapter. They can't ship as a TOC skill as they are; TOC extraction (sa-bcad method) is the shippable form.
 
 ## Benchmark toc-extraction/bo 2.0.0
