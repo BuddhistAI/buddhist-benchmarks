@@ -41,6 +41,16 @@ jobs:
             git commit -am "Regenerate leaderboards [skip ci]"
             git push
           fi
+      - name: Tag data set releases that have no tag yet
+        run: |
+          git fetch --tags --quiet
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for t in $(python3 scripts/tag_releases.py); do
+            if ! git rev-parse -q --verify "refs/tags/$t" >/dev/null; then
+              git tag -a "$t" -m "Release $t" && git push origin "refs/tags/$t"
+            fi
+          done
       - name: Build site
         run: python3 scripts/build_leaderboards.py --site _site --bench _bench --fetch-external
       - uses: actions/configure-pages@v5
