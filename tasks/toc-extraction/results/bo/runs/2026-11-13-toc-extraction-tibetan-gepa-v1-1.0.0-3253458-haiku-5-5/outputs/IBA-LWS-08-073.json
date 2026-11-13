@@ -1,0 +1,59 @@
+{
+ "entries": [
+  {
+   "title": "Division by cause",
+   "level": 1,
+   "anchor": "གསུམ་པ་རྒྱུའི་སྒོ་ནས་དབྱེ་བ་ནི།"
+  },
+  {
+   "title": "Division by cause and result",
+   "level": 1,
+   "anchor": "བཞི་པ་རྒྱུ་འབྲས་གཉིས་ཀའི་སྒོ་ནས་དབྱེ་བ་ལ།"
+  },
+  {
+   "title": "Brief statement",
+   "level": 2,
+   "anchor": "དང་པོ་(མདོར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "Extensive explanation",
+   "level": 2,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ནི།"
+  },
+  {
+   "title": "Division by basis",
+   "level": 1,
+   "anchor": "ལྔ་པ་རྟེན་གྱི་སྒོ་ནས་དབྱེ་བ་ནི།"
+  },
+  {
+   "title": "Division by function",
+   "level": 1,
+   "anchor": "དྲུག་པ་བྱེད་པའི་སྒོ་ནས་དབྱེ་བ་ནི།"
+  },
+  {
+   "title": "Good and bad conduct",
+   "level": 1,
+   "anchor": "བདུན་པ་ལེགས་སྤྱད་དང་ཉེས་སྤྱད་བཤད་པ་ལ་གསུམ།"
+  },
+  {
+   "title": "Classification of action paths",
+   "level": 2,
+   "anchor": "དང་པོ་(ལས་ལམ་གྱི་རྣམ་གཞག་)ལ།"
+  },
+  {
+   "title": "Brief statement",
+   "level": 3,
+   "anchor": "དང་པོ་(མདོར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "Extensive explanation",
+   "level": 2,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ལ་བདུན།"
+  },
+  {
+   "title": "Certainty of perceptible and imperceptible actions",
+   "level": 3,
+   "anchor": "དང་པོ་(རིག་བྱེད་དང་རིག་བྱེད་མ་ཡིན་པའི་ངེས་པ་)ནི།"
+  }
+ ]
+}

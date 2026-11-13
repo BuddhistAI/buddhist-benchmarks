@@ -1,0 +1,59 @@
+{
+ "entries": [
+  {
+   "title": "First, the actual [topic]",
+   "level": 1,
+   "anchor": "དང་པོ་(དངོས་)ལ། བསྟན། བཤད་དོ།"
+  },
+  {
+   "title": "First, brief exposition",
+   "level": 2,
+   "anchor": "དང་པོ་(མདོར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "Second, extensive exposition: four",
+   "level": 2,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ལ་བཞི།"
+  },
+  {
+   "title": "First, the kalpa of destruction",
+   "level": 3,
+   "anchor": "དང་པོ་(འཇིག་པའི་བསྐལ་པ་)ནི།"
+  },
+  {
+   "title": "Second, the kalpa of formation",
+   "level": 3,
+   "anchor": "གཉིས་པ་འཆགས་པའི་བསྐལ་པ་ནི།"
+  },
+  {
+   "title": "Third, the kalpa of abiding",
+   "level": 3,
+   "anchor": "གསུམ་པ་གནས་པའི་བསྐལ་པ་ནི།"
+  },
+  {
+   "title": "Fourth, the great kalpa",
+   "level": 3,
+   "anchor": "བཞི་པ་བསྐལ་ཆེན་ནི།"
+  },
+  {
+   "title": "Second, digressions: two",
+   "level": 2,
+   "anchor": "གཉིས་པ་ཞར་ལས་བྱུང་བ་ལ་གཉིས།"
+  },
+  {
+   "title": "First, digression on the great kalpa: three",
+   "level": 3,
+   "anchor": "དང་པོ་(བསྐལ་ཆེན་གྱི་ཞར་བྱུང༌)ལ་གསུམ།"
+  },
+  {
+   "title": "First, Buddhas",
+   "level": 4,
+   "anchor": "དང་པོ་(སངས་རྒྱས་)ནི།"
+  },
+  {
+   "title": "Second, how Pratyekabuddhas arise",
+   "level": 4,
+   "anchor": "གཉིས་པ་རང་རྒྱལ་འབྱུང་ཚུལ་ནི།"
+  }
+ ]
+}

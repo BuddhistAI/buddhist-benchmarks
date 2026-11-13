@@ -1,0 +1,3 @@
+# Test data and outputs are compared byte for byte (character offsets): never convert line endings.
+tasks/*/data/** -text
+tasks/*/results/** -text

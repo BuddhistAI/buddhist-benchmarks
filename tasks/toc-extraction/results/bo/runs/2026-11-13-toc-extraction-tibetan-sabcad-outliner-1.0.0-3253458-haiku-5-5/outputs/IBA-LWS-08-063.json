@@ -1,0 +1,54 @@
+{
+ "entries": [
+  {
+   "title": "First: sdom pa, two parts (bstan, bshad)",
+   "level": 1,
+   "anchor": "དང་པོ་(སྡོམ་པ་)ལ་གཉིས། བསྟན། བཤད་དོ།"
+  },
+  {
+   "title": "First: brief exposition (leaf)",
+   "level": 2,
+   "anchor": "དང་པོ་(མདོར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "Second: extensive exposition, three parts",
+   "level": 2,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ལ་གསུམ།"
+  },
+  {
+   "title": "First: so thar sdom pa, four parts",
+   "level": 3,
+   "anchor": "དང་པོ་(སོ་ཐར་གྱི་སྡོམ་པ་)ལ་བཞི།"
+  },
+  {
+   "title": "Divisions (dbye ba)",
+   "level": 4,
+   "anchor": "དང་པོ་(དབྱེ་བ་)ནི།"
+  },
+  {
+   "title": "Essence (ngo bo)",
+   "level": 4,
+   "anchor": "གཉིས་པ་ངོ་བོ་ནི།"
+  },
+  {
+   "title": "Etymology (sgra don)",
+   "level": 4,
+   "anchor": "གསུམ་པ་སྒྲ་དོན་ནི།"
+  },
+  {
+   "title": "Possessors (ldan pa'i gang zag)",
+   "level": 4,
+   "anchor": "བཞི་པ་ལྡན་པའི་གང་ཟག་ནི།"
+  },
+  {
+   "title": "Second: dhyana and uncontaminated sdom pa",
+   "level": 3,
+   "anchor": "གཉིས་པ་བསམ་གཏན་ཟག་མེད་ཀྱི་སྡོམ་པ་ནི།"
+  },
+  {
+   "title": "Third: digression (zhar byung)",
+   "level": 3,
+   "anchor": "གསུམ་པ་ཞར་བྱུང་ནི།"
+  }
+ ]
+}

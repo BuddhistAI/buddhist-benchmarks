@@ -2,8 +2,8 @@
 
 ## Add test data for your language
 
-1. Create `tasks/<task>/data/<code>/<version>/` with `inputs/`, `references/`, and a `README.md` that states: purpose, number of items, source and license of the texts, who made the references, and any shared resource versions (with commit).
-2. Use the next version number (`v1`, `v2`, ...). Never change a published version: fix mistakes in a new version, so old scores stay meaningful.
+1. Create `tasks/<task>/data/<code>/v1/` with `inputs/`, `references/`, and a `README.md` that states: version, purpose, number of items, source and license of the texts, who made the references, and any shared resource versions (with commit).
+2. Data sets are versioned with semver (see [VERSIONING.md](./VERSIONING.md)): new corner cases are a minor bump, fixed references a patch bump, a scorer or format change a major bump (new `v<N>/` folder). Record every change in the task's `CHANGELOG.md`.
 3. Create `tasks/<task>/results/<code>/LEADERBOARD.md` if it does not exist yet.
 4. Run `python3 scripts/check.py`.
 
@@ -23,4 +23,4 @@ Open an issue describing the task, an input/output format, and how it would be s
 
 ## Change a scorer
 
-A scorer change can move every score. Bump a `scorer_version` note in `TASK.md`, re-score existing runs where outputs are available, and mention it in the PR.
+A scorer change can move every score. Bump `SCORER_VERSION` in `scorer/score.py` and in `TASK.md`, bump the major version of every data set of that task (see [VERSIONING.md](./VERSIONING.md)), re-score existing runs where outputs are available, and mention it in the PR.

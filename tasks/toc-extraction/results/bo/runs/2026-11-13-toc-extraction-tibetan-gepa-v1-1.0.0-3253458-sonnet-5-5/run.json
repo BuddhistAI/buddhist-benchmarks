@@ -1,0 +1,16 @@
+{
+  "task": "toc-extraction",
+  "language": "bo",
+  "data": "1.0.0",
+  "skill": "toc-extraction-tibetan",
+  "variant": "gepa-v1",
+  "version": "1.0.0",
+  "skill_ref": "BuddhistAI/toc-extraction-tibetan@3253458:variants/gepa-v1",
+  "condition": "ours",
+  "model": "claude-sonnet-5-5",
+  "temperature": 1.0,
+  "harness": "toc-extraction-tibetan benchmark/bench_skills.py (DSPy 3.5.0 ChainOfThought)",
+  "date": "2026-11-13",
+  "by": "WeBuddhist",
+  "note": "outputs are run 2 of 3; the leaderboard row is the mean of runs 1-3 (see the lab REPORT.md)"
+}

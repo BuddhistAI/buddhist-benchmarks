@@ -1,0 +1,44 @@
+{
+ "entries": [
+  {
+   "title": "Second: abiding is two (general / specific)",
+   "level": 1,
+   "anchor": "གཉིས་པ་གནས་པ་ལ་གཉིས།"
+  },
+  {
+   "title": "First: general showing",
+   "level": 2,
+   "anchor": "དང་པོ་(སྤྱིར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "Second: specific explanation is three",
+   "level": 2,
+   "anchor": "གཉིས་པ་བྱེ་བྲག་ཏུ་བཤད་པ་ལ་གསུམ།"
+  },
+  {
+   "title": "First: division is two (actual / special difference)",
+   "level": 3,
+   "anchor": "དང་པོ་(དབྱེ་བ་)ལ་གཉིས།"
+  },
+  {
+   "title": "First: the actual (dngos)",
+   "level": 4,
+   "anchor": "དང་པོ་(དངོས་)ནི།"
+  },
+  {
+   "title": "Second: special difference of meaning",
+   "level": 4,
+   "anchor": "གཉིས་པ་དོན་གྱི་ཁྱད་པར་ནི།"
+  },
+  {
+   "title": "Second: meditating the spelma",
+   "level": 3,
+   "anchor": "གཉིས་པ་སྤེལ་མ་བསྒོམ་པ་ནི།"
+  },
+  {
+   "title": "Third: explanation of body-manifestation",
+   "level": 3,
+   "anchor": "གསུམ་པ་ལུས་མངོན་བྱེད་བཤད་པ་ནི།"
+  }
+ ]
+}

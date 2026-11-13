@@ -1,0 +1,44 @@
+{
+ "entries": [
+  {
+   "title": "རྐྱེན་བཤད་པ (explanation of conditions)",
+   "level": 1,
+   "anchor": "གཉིས་པ་རྐྱེན་བཤད་པ་ལ།"
+  },
+  {
+   "title": "མདོར་བསྟན་པ (brief indication)",
+   "level": 2,
+   "anchor": "དང་པོ་མདོར་བསྟན་པ་ནི།"
+  },
+  {
+   "title": "རྒྱས་བཤད (extensive explanation)",
+   "level": 2,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ལ་བཞི།"
+  },
+  {
+   "title": "རྐྱེན་སོ་སོའི་མཚན་ཉིད (individual characteristics of conditions)",
+   "level": 3,
+   "anchor": "དང་པོ་(རྐྱེན་སོ་སོའི་མཚན་ཉིད་)ནི།"
+  },
+  {
+   "title": "རྐྱེན་གང་འབྲས་བུ་ལ་བྱ་བ་བྱེད་པ (which condition acts on which result)",
+   "level": 3,
+   "anchor": "གཉིས་པ་(རྐྱེན་གང་འབྲས་བུ་དུས་གསུམ་པ་གང་ལ་བྱ་བ་བྱེད་པ་)ནི།"
+  },
+  {
+   "title": "དངོས་པོ་གང་རྐྱེན་དུས་སྐྱེད་པ (what things conditions produce)",
+   "level": 3,
+   "anchor": "གསུམ་པ་(དངོས་པོ་གང་རྐྱེན་དུས་སྐྱེད་པ་)ནི།"
+  },
+  {
+   "title": "དེ་མ་ཐག་པའི་རྐྱེན་རྒྱས་པར་བཤད་པ (extensive explanation of immediate condition)",
+   "level": 2,
+   "anchor": "བཞི་པ་དེ་མ་ཐག་པའི་རྐྱེན་རྒྱས་པར་བཤད་པ་ལ་གསུམ།"
+  },
+  {
+   "title": "སེམས་བཅུ་གཉིས་སུ་དབྱེ་བ (division into twelve minds)",
+   "level": 3,
+   "anchor": "དང་པོ་(སེམས་བཅུ་གཉིས་སུ་དབྱེ་བ་)ལ།"
+  }
+ ]
+}

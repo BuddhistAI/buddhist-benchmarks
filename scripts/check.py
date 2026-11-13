@@ -12,7 +12,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 LANGUAGES_URL = "https://raw.githubusercontent.com/BuddhistAI/buddhist-skills/main/languages.json"
-README_FIELDS = ["Purpose", "Items", "Source and license", "References made by"]
+README_FIELDS = ["Version", "Purpose", "Items", "Source and license", "References made by"]
 
 errors, warnings = [], []
 index = json.loads((ROOT / "tasks" / "index.json").read_text(encoding="utf-8"))

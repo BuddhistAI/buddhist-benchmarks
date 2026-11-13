@@ -10,8 +10,10 @@ One folder per run: `<YYYY-MM-DD>-<skill-name>-<short-commit>-<model>/`, contain
 {
   "task": "toc-extraction",
   "language": "bo",
-  "data": "v1",
+  "data": "1.0.0",
   "skill": "toc-extraction-tibetan",
+  "variant": "webuddhist-v1",
+  "version": "1.0.0",
   "skill_ref": "BuddhistAI/buddhist-skills@3f2a1c9:drafts/toc-extraction-tibetan/webuddhist-v1",
   "model": "<model id>",
   "harness": "<agent and version, e.g. Claude Code 2.x>",

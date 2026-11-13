@@ -1,0 +1,512 @@
+[
+ {
+  "id": "IBA-LWS-08-005",
+  "subset": "same-book",
+  "chars": 5553,
+  "headings": 8
+ },
+ {
+  "id": "IBA-LWS-08-011",
+  "subset": "same-book",
+  "chars": 5153,
+  "headings": 2
+ },
+ {
+  "id": "IBA-LWS-08-016",
+  "subset": "same-book",
+  "chars": 5791,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-020",
+  "subset": "same-book",
+  "chars": 4256,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-021",
+  "subset": "same-book",
+  "chars": 2416,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-022",
+  "subset": "same-book",
+  "chars": 5198,
+  "headings": 15
+ },
+ {
+  "id": "IBA-LWS-08-023",
+  "subset": "same-book",
+  "chars": 4821,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-026",
+  "subset": "same-book",
+  "chars": 2904,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-036",
+  "subset": "same-book",
+  "chars": 1861,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-038",
+  "subset": "same-book",
+  "chars": 5947,
+  "headings": 10
+ },
+ {
+  "id": "IBA-LWS-08-044",
+  "subset": "same-book",
+  "chars": 1380,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-045",
+  "subset": "same-book",
+  "chars": 514,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-047",
+  "subset": "same-book",
+  "chars": 2022,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-048",
+  "subset": "same-book",
+  "chars": 1679,
+  "headings": 5
+ },
+ {
+  "id": "IBA-LWS-08-049",
+  "subset": "same-book",
+  "chars": 5938,
+  "headings": 8
+ },
+ {
+  "id": "IBA-LWS-08-051",
+  "subset": "same-book",
+  "chars": 5985,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-053",
+  "subset": "same-book",
+  "chars": 2792,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-055",
+  "subset": "same-book",
+  "chars": 4503,
+  "headings": 7
+ },
+ {
+  "id": "IBA-LWS-08-068",
+  "subset": "same-book",
+  "chars": 2702,
+  "headings": 6
+ },
+ {
+  "id": "IBA-LWS-08-070",
+  "subset": "same-book",
+  "chars": 2441,
+  "headings": 10
+ },
+ {
+  "id": "IBA-LWS-08-073",
+  "subset": "same-book",
+  "chars": 5732,
+  "headings": 11
+ },
+ {
+  "id": "IBA-LWS-08-076",
+  "subset": "same-book",
+  "chars": 836,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-077",
+  "subset": "same-book",
+  "chars": 4679,
+  "headings": 2
+ },
+ {
+  "id": "IBA-LWS-08-084",
+  "subset": "same-book",
+  "chars": 5315,
+  "headings": 6
+ },
+ {
+  "id": "IBA-LWS-08-085",
+  "subset": "same-book",
+  "chars": 4643,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-087",
+  "subset": "same-book",
+  "chars": 5018,
+  "headings": 9
+ },
+ {
+  "id": "IBA-LWS-08-090",
+  "subset": "same-book",
+  "chars": 4515,
+  "headings": 8
+ },
+ {
+  "id": "IBA-LWS-08-096",
+  "subset": "same-book",
+  "chars": 5972,
+  "headings": 7
+ },
+ {
+  "id": "IBA-LWS-08-102",
+  "subset": "same-book",
+  "chars": 5295,
+  "headings": 8
+ },
+ {
+  "id": "IBA-LWS-08-105",
+  "subset": "same-book",
+  "chars": 2498,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-108",
+  "subset": "same-book",
+  "chars": 3304,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-109",
+  "subset": "same-book",
+  "chars": 4985,
+  "headings": 5
+ },
+ {
+  "id": "IBA-LWS-08-111",
+  "subset": "same-book",
+  "chars": 4338,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-113",
+  "subset": "same-book",
+  "chars": 2164,
+  "headings": 2
+ },
+ {
+  "id": "IBA-LWS-08-116",
+  "subset": "same-book",
+  "chars": 5656,
+  "headings": 11
+ },
+ {
+  "id": "IBA-LWS-08-119",
+  "subset": "same-book",
+  "chars": 1202,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-121",
+  "subset": "same-book",
+  "chars": 3925,
+  "headings": 6
+ },
+ {
+  "id": "IBA-LWS-08-128",
+  "subset": "same-book",
+  "chars": 4447,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-001",
+  "subset": "same-book",
+  "chars": 4902,
+  "headings": 10
+ },
+ {
+  "id": "IBA-LWS-08-002",
+  "subset": "same-book",
+  "chars": 3603,
+  "headings": 6
+ },
+ {
+  "id": "IBA-LWS-08-009",
+  "subset": "same-book",
+  "chars": 5213,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-012",
+  "subset": "same-book",
+  "chars": 4870,
+  "headings": 2
+ },
+ {
+  "id": "IBA-LWS-08-013",
+  "subset": "same-book",
+  "chars": 1846,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-018",
+  "subset": "same-book",
+  "chars": 4747,
+  "headings": 5
+ },
+ {
+  "id": "IBA-LWS-08-028",
+  "subset": "same-book",
+  "chars": 4496,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-029",
+  "subset": "same-book",
+  "chars": 5972,
+  "headings": 15
+ },
+ {
+  "id": "IBA-LWS-08-031",
+  "subset": "same-book",
+  "chars": 4222,
+  "headings": 5
+ },
+ {
+  "id": "IBA-LWS-08-033",
+  "subset": "same-book",
+  "chars": 5928,
+  "headings": 8
+ },
+ {
+  "id": "IBA-LWS-08-037",
+  "subset": "same-book",
+  "chars": 4398,
+  "headings": 5
+ },
+ {
+  "id": "IBA-LWS-08-041",
+  "subset": "same-book",
+  "chars": 5216,
+  "headings": 9
+ },
+ {
+  "id": "IBA-LWS-08-042",
+  "subset": "same-book",
+  "chars": 3960,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-046",
+  "subset": "same-book",
+  "chars": 3397,
+  "headings": 6
+ },
+ {
+  "id": "IBA-LWS-08-052",
+  "subset": "same-book",
+  "chars": 2911,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-057",
+  "subset": "same-book",
+  "chars": 5470,
+  "headings": 11
+ },
+ {
+  "id": "IBA-LWS-08-061",
+  "subset": "same-book",
+  "chars": 5183,
+  "headings": 4
+ },
+ {
+  "id": "IBA-LWS-08-063",
+  "subset": "same-book",
+  "chars": 4678,
+  "headings": 10
+ },
+ {
+  "id": "IBA-LWS-08-064",
+  "subset": "same-book",
+  "chars": 4861,
+  "headings": 13
+ },
+ {
+  "id": "IBA-LWS-08-066",
+  "subset": "same-book",
+  "chars": 1860,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-067",
+  "subset": "same-book",
+  "chars": 616,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-071",
+  "subset": "same-book",
+  "chars": 5713,
+  "headings": 7
+ },
+ {
+  "id": "IBA-LWS-08-075",
+  "subset": "same-book",
+  "chars": 5732,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-078",
+  "subset": "same-book",
+  "chars": 4648,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-080",
+  "subset": "same-book",
+  "chars": 4947,
+  "headings": 1
+ },
+ {
+  "id": "IBA-LWS-08-082",
+  "subset": "same-book",
+  "chars": 2944,
+  "headings": 2
+ },
+ {
+  "id": "IBA-LWS-08-091",
+  "subset": "same-book",
+  "chars": 4241,
+  "headings": 5
+ },
+ {
+  "id": "IBA-LWS-08-094",
+  "subset": "same-book",
+  "chars": 5936,
+  "headings": 4
+ },
+ {
+  "id": "IBA-LWS-08-097",
+  "subset": "same-book",
+  "chars": 1656,
+  "headings": 2
+ },
+ {
+  "id": "IBA-LWS-08-098",
+  "subset": "same-book",
+  "chars": 5893,
+  "headings": 4
+ },
+ {
+  "id": "IBA-LWS-08-101",
+  "subset": "same-book",
+  "chars": 5992,
+  "headings": 8
+ },
+ {
+  "id": "IBA-LWS-08-103",
+  "subset": "same-book",
+  "chars": 4576,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-106",
+  "subset": "same-book",
+  "chars": 5759,
+  "headings": 7
+ },
+ {
+  "id": "IBA-LWS-08-107",
+  "subset": "same-book",
+  "chars": 2788,
+  "headings": 3
+ },
+ {
+  "id": "IBA-LWS-08-110",
+  "subset": "same-book",
+  "chars": 4410,
+  "headings": 2
+ },
+ {
+  "id": "IBA-LWS-08-117",
+  "subset": "same-book",
+  "chars": 2615,
+  "headings": 5
+ },
+ {
+  "id": "IBA-LWS-08-118",
+  "subset": "same-book",
+  "chars": 5749,
+  "headings": 5
+ },
+ {
+  "id": "IBA-LWS-08-123",
+  "subset": "same-book",
+  "chars": 5933,
+  "headings": 7
+ },
+ {
+  "id": "RCP-FM-07-000",
+  "subset": "held-out-book",
+  "chars": 607,
+  "headings": 0
+ },
+ {
+  "id": "RCP-FM-07-001",
+  "subset": "held-out-book",
+  "chars": 4681,
+  "headings": 5
+ },
+ {
+  "id": "RCP-FM-07-002",
+  "subset": "held-out-book",
+  "chars": 4737,
+  "headings": 3
+ },
+ {
+  "id": "RCP-FM-07-003",
+  "subset": "held-out-book",
+  "chars": 3604,
+  "headings": 2
+ },
+ {
+  "id": "RCP-FM-07-004",
+  "subset": "held-out-book",
+  "chars": 4943,
+  "headings": 4
+ },
+ {
+  "id": "RCP-FM-07-005",
+  "subset": "held-out-book",
+  "chars": 4660,
+  "headings": 6
+ },
+ {
+  "id": "RCP-FM-07-006",
+  "subset": "held-out-book",
+  "chars": 4677,
+  "headings": 3
+ },
+ {
+  "id": "RCP-FM-07-007",
+  "subset": "held-out-book",
+  "chars": 2347,
+  "headings": 1
+ },
+ {
+  "id": "RCP-FM-07-008",
+  "subset": "held-out-book",
+  "chars": 1973,
+  "headings": 1
+ }
+]

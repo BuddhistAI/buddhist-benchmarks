@@ -1,0 +1,59 @@
+{
+ "entries": [
+  {
+   "title": "3rd: division by cause",
+   "level": 1,
+   "anchor": "གསུམ་པ་རྒྱུའི་སྒོ་ནས་དབྱེ་བ་ནི།"
+  },
+  {
+   "title": "4th: division by cause and result",
+   "level": 1,
+   "anchor": "བཞི་པ་རྒྱུ་འབྲས་གཉིས་ཀའི་སྒོ་ནས་དབྱེ་བ་ལ།"
+  },
+  {
+   "title": "4-1: brief statement",
+   "level": 2,
+   "anchor": "དང་པོ་(མདོར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "4-2: extensive explanation",
+   "level": 2,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ནི།"
+  },
+  {
+   "title": "5th: division by support",
+   "level": 1,
+   "anchor": "ལྔ་པ་རྟེན་གྱི་སྒོ་ནས་དབྱེ་བ་ནི།"
+  },
+  {
+   "title": "6th: division by agent",
+   "level": 1,
+   "anchor": "དྲུག་པ་བྱེད་པའི་སྒོ་ནས་དབྱེ་བ་ནི།"
+  },
+  {
+   "title": "7th: good and bad conduct",
+   "level": 1,
+   "anchor": "བདུན་པ་ལེགས་སྤྱད་དང་ཉེས་སྤྱད་བཤད་པ་ལ་གསུམ།"
+  },
+  {
+   "title": "7-1: system of action paths",
+   "level": 2,
+   "anchor": "དང་པོ་(ལས་ལམ་གྱི་རྣམ་གཞག་)ལ། བསྟན། བཤད་དོ།"
+  },
+  {
+   "title": "7-1-1: brief statement",
+   "level": 3,
+   "anchor": "དང་པོ་(མདོར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "7-1-2: extensive explanation, seven topics",
+   "level": 3,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ལ་བདུན།"
+  },
+  {
+   "title": "7-1-2-1: certainty of perceptible and imperceptible",
+   "level": 4,
+   "anchor": "དང་པོ་(རིག་བྱེད་དང་རིག་བྱེད་མ་ཡིན་པའི་ངེས་པ་)ནི།"
+  }
+ ]
+}

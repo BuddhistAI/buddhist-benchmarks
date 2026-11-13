@@ -1,0 +1,54 @@
+{
+ "entries": [
+  {
+   "title": "Fourth topic: three (announcement)",
+   "level": 1,
+   "anchor": "བཞི་པ་གང་ལས་གང་འབྱུང་བ་ལ་གསུམ།"
+  },
+  {
+   "title": "Child 1: the three (what arises from what)",
+   "level": 2,
+   "anchor": "གསུམ་པོ་གང་ལས་གང་འབྱུང་བ།"
+  },
+  {
+   "title": "Child 2: pure-ones explained specifically",
+   "level": 2,
+   "anchor": "དག་པ་བ་བྱེ་བྲག་ཏུ་བཤད།"
+  },
+  {
+   "title": "Child 3: thod-rgal samapatti explained specifically",
+   "level": 2,
+   "anchor": "ཐོད་རྒལ་གྱི་སྙོམས་འཇུག་བྱེ་བྲག་ཏུ་བཤད་པའོ།"
+  },
+  {
+   "title": "First: two (the three arising from what)",
+   "level": 3,
+   "anchor": "དང་པོ་(གསུམ་པོ་གང་ལས་གང་འབྱུང་བ་)ལ་གཉིས།"
+  },
+  {
+   "title": "First: from the viewpoint of samapatti",
+   "level": 4,
+   "anchor": "དང་པོ་(སྙོམས་འཇུག་གི་དབང་དུ་བྱས་པ་)ནི།"
+  },
+  {
+   "title": "Second: from the viewpoint of what is other than that",
+   "level": 4,
+   "anchor": "གཉིས་པ་དེ་ལས་གཞན་པའི་དབང་དུ་བྱས་པ་ནི།"
+  },
+  {
+   "title": "Second: pure-ones explained specifically",
+   "level": 3,
+   "anchor": "གཉིས་པ་དག་པ་བ་བྱེ་བྲག་ཏུ་བཤད་པ་ནི།"
+  },
+  {
+   "title": "Third: thod-rgal samapatti explained specifically",
+   "level": 3,
+   "anchor": "གསུམ་པ་ཐོད་རྒལ་གྱི་སྙོམས་འཇུག་བྱེ་བྲག་ཏུ་བཤད་པ་ནི།"
+  },
+  {
+   "title": "Fifth: distinction of dharmas",
+   "level": 3,
+   "anchor": "ལྔ་པ་ཆོས་ཀྱི་ཁྱད་པར་ནི།"
+  }
+ ]
+}

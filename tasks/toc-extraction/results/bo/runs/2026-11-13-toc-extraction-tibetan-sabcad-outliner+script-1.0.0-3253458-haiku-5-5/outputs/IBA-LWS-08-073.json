@@ -1,0 +1,54 @@
+{
+ "entries": [
+  {
+   "title": "Third: division by cause",
+   "level": 1,
+   "anchor": "གསུམ་པ་རྒྱུའི་སྒོ་ནས་དབྱེ་བ་ནི།"
+  },
+  {
+   "title": "Fourth: division by cause and result",
+   "level": 1,
+   "anchor": "བཞི་པ་རྒྱུ་འབྲས་གཉིས་ཀའི་སྒོ་ནས་དབྱེ་བ་ལ།"
+  },
+  {
+   "title": "Fourth, first: brief statement",
+   "level": 2,
+   "anchor": "དང་པོ་(མདོར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "Fourth, second: extensive explanation",
+   "level": 2,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ནི།"
+  },
+  {
+   "title": "Fifth: division by basis",
+   "level": 1,
+   "anchor": "ལྔ་པ་རྟེན་གྱི་སྒོ་ནས་དབྱེ་བ་ནི།"
+  },
+  {
+   "title": "Sixth: division by agent",
+   "level": 1,
+   "anchor": "དྲུག་པ་བྱེད་པའི་སྒོ་ནས་དབྱེ་བ་ནི།"
+  },
+  {
+   "title": "Seventh: explanation of good and bad conduct",
+   "level": 1,
+   "anchor": "བདུན་པ་ལེགས་སྤྱད་དང་ཉེས་སྤྱད་བཤད་པ་ལ་གསུམ།"
+  },
+  {
+   "title": "Seventh, first: arrangement of karmic paths",
+   "level": 2,
+   "anchor": "དང་པོ་(ལས་ལམ་གྱི་རྣམ་གཞག་)ལ།"
+  },
+  {
+   "title": "Seventh, first, brief statement",
+   "level": 3,
+   "anchor": "དང་པོ་(མདོར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "Seventh, second: extensive explanation (seven parts)",
+   "level": 2,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ལ་བདུན།"
+  }
+ ]
+}

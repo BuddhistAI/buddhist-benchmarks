@@ -1,0 +1,29 @@
+{
+ "entries": [
+  {
+   "title": "Explaining the result (2nd topic)",
+   "level": 1,
+   "anchor": "གཉིས་པ་འབྲས་བུ་བཤད་པ་ལ།"
+  },
+  {
+   "title": "Brief statement (1st of བསྟན/བཤད)",
+   "level": 2,
+   "anchor": "དང་པོ་(མདོར་བསྟན་པ་)ནི།"
+  },
+  {
+   "title": "Extensive explanation (2nd of བསྟན/བཤད)",
+   "level": 2,
+   "anchor": "གཉིས་པ་རྒྱས་བཤད་ལ།"
+  },
+  {
+   "title": "Which cause each result belongs to",
+   "level": 3,
+   "anchor": "དང་པོ་(འབྲས་བུ་གང་རྒྱུ་གང་གི་ཡིན་པ་)ནི།"
+  },
+  {
+   "title": "Individual characteristics",
+   "level": 3,
+   "anchor": "གཉིས་པ་སོ་སོའི་མཚན་ཉིད་ནི།"
+  }
+ ]
+}
