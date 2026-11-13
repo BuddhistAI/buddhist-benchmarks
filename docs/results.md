@@ -75,3 +75,7 @@ One per task and language. `skills.<variant>` has `status` (`promoted`, `challen
 ## BuddhistBench
 
 BuddhistBench model runs live in [buddhist-bench](https://github.com/BuddhistAI/buddhist-bench) in their own format (its `docs/results.md`: `run.json` + `scores.json`). The site reads them at build time and skips dry runs and example splits.
+
+## External leaderboards
+
+`external.json` lists leaderboards other organizations run, such as BDRC's Tibetan OCR leaderboard. The overview shows each as a card that links out; on CI the build reads their live top rows (`--fetch-external`, one parser per site). Nothing there is scored here.
