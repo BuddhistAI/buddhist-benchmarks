@@ -1,0 +1,7 @@
+{
+  "_comment": "Models that appear on any leaderboard. tier orders models by price, cheapest first; it decides the 'cheapest strong model' on the overview. Add a model here before adding its first result.",
+  "models": {
+    "claude-haiku-5-5": {"name": "Claude Haiku 5.5", "provider": "Anthropic", "tier": 1},
+    "claude-sonnet-5-5": {"name": "Claude Sonnet 5.5", "provider": "Anthropic", "tier": 2}
+  }
+}

@@ -4,14 +4,14 @@
 
 1. Create `tasks/<task>/data/<code>/v1/` with `inputs/`, `references/`, and a `README.md` that states: version, purpose, number of items, source and license of the texts, who made the references, and any shared resource versions (with commit).
 2. Data sets are versioned with semver (see [VERSIONING.md](./VERSIONING.md)): new corner cases are a minor bump, fixed references a patch bump, a scorer or format change a major bump (new `v<N>/` folder). Record every change in the task's `CHANGELOG.md`.
-3. Create `tasks/<task>/results/<code>/LEADERBOARD.md` if it does not exist yet.
+3. Create `tasks/<task>/results/<code>/skills.json` (see [docs/results.md](./docs/results.md)); `LEADERBOARD.md` is generated once the first result is in.
 4. Run `python3 scripts/check.py`.
 
 Prefer texts that represent real work: real OCR, real editions, real page layouts. 30 or more items is a good first set; say in the README how they were chosen.
 
 ## Submit a run
 
-Follow `tasks/<task>/results/<code>/runs/README.md`, add your row to the leaderboard, and open a PR. Include your outputs, so anyone can re-score them.
+Add a run folder with a `result.json` ([docs/results.md](./docs/results.md)), run `python3 scripts/build_leaderboards.py`, and open a PR. Include your outputs, so anyone can re-score them. Never edit `LEADERBOARD.md` or the README table by hand: they are generated, and CI rebuilds the site on every push to `main`.
 
 ## Propose a new task
 

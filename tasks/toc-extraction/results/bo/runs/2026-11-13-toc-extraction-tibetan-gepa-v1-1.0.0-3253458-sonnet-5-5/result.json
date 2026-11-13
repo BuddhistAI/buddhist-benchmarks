@@ -1,0 +1,109 @@
+{
+  "schema": "buddhist-benchmarks/result@1",
+  "task": "toc-extraction",
+  "language": "bo",
+  "data_version": "1.0.0",
+  "scorer_version": "1.0.0",
+  "skill": "toc-extraction-tibetan",
+  "variant": "gepa-v1",
+  "skill_version": "1.0.0",
+  "skill_ref": "BuddhistAI/toc-extraction-tibetan@3253458:variants/gepa-v1",
+  "model": "claude-sonnet-5-5",
+  "temperature": 1.0,
+  "repeats": 3,
+  "harness": "toc-extraction-tibetan benchmark/bench_skills.py (DSPy 3.5.0 ChainOfThought)",
+  "headline": "structure_f1",
+  "scores": {
+    "same-book": {
+      "structure_f1": {
+        "mean": 0.961717,
+        "std": 0.021776,
+        "runs": [
+          0.936572,
+          0.97429,
+          0.97429
+        ]
+      },
+      "title_f1": {
+        "mean": 0.989641,
+        "std": 0.006223,
+        "runs": [
+          0.982456,
+          0.993234,
+          0.993234
+        ]
+      },
+      "level_accuracy": {
+        "mean": 0.971717,
+        "std": 0.015952,
+        "runs": [
+          0.953297,
+          0.980926,
+          0.980926
+        ]
+      }
+    },
+    "held-out-book": {
+      "structure_f1": {
+        "mean": 0.793651,
+        "std": 0.0,
+        "runs": [
+          0.793651,
+          0.793651,
+          0.793651
+        ]
+      },
+      "title_f1": {
+        "mean": 0.793651,
+        "std": 0.0,
+        "runs": [
+          0.793651,
+          0.793651,
+          0.793651
+        ]
+      },
+      "level_accuracy": {
+        "mean": 1.0,
+        "std": 0.0,
+        "runs": [
+          1.0,
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "all": {
+      "structure_f1": {
+        "mean": 0.948524,
+        "std": 0.020049,
+        "runs": [
+          0.925373,
+          0.9601,
+          0.9601
+        ]
+      },
+      "title_f1": {
+        "mean": 0.974258,
+        "std": 0.005713,
+        "runs": [
+          0.967662,
+          0.977556,
+          0.977556
+        ]
+      },
+      "level_accuracy": {
+        "mean": 0.973528,
+        "std": 0.014921,
+        "runs": [
+          0.956298,
+          0.982143,
+          0.982143
+        ]
+      }
+    }
+  },
+  "cost_usd": null,
+  "date": "2026-11-13",
+  "by": "WeBuddhist",
+  "report": "https://github.com/BuddhistAI/toc-extraction-tibetan/blob/main/REPORT.md"
+}

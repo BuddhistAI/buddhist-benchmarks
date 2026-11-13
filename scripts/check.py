@@ -66,6 +66,11 @@ for task in index["tasks"]:
             if s[s["headline"]] != 1.0:
                 errors.append(f"{rel}: references do not score 1.0 against themselves ({s['headline']}={s[s['headline']]})")
 
+# Leaderboards are generated from result.json files and must be up to date.
+out = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_leaderboards.py"), "--check"], capture_output=True, text=True)
+if out.returncode != 0:
+    errors.append("leaderboards: " + out.stdout.strip())
+
 for p in sorted((ROOT / "tasks").iterdir()):
     if p.is_dir() and p.name not in ids:
         errors.append(f"tasks/{p.name}: folder not listed in tasks/index.json")

@@ -1,0 +1,57 @@
+{
+  "_comment": "Every skill on the toc-extraction/bo leaderboard, keyed by the `variant` in its result.json. status: promoted (ships in buddhist-skills), challenger, baseline, or reference (useful to compare against but cannot ship as this task's skill). Edit this file by hand; LEADERBOARD.md and the site are generated from it and the result.json files.",
+  "promoted": {
+    "variant": "sabcad-outliner-toc",
+    "version": "1.0.0",
+    "date": "2026-11-13",
+    "skill": "https://github.com/BuddhistAI/buddhist-skills/tree/main/skills/toc-extraction-tibetan"
+  },
+  "lab": "https://github.com/BuddhistAI/toc-extraction-tibetan",
+  "report": "https://github.com/BuddhistAI/toc-extraction-tibetan/blob/main/REPORT.md",
+  "splits": {
+    "all": "All 85 passages, 394 headings.",
+    "same-book": "76 passages of A Lamp Illuminating the Intent of Vasubandhu. gepa-v1 was tuned on 48 other passages of this book.",
+    "held-out-book": "9 passages of The Jewel Garland, a book no skill was tuned on. Its references are known to miss real headings, so precision is understated for every skill."
+  },
+  "notes": [
+    "sabcad-outliner-toc and gepa-v1 are a near-tie: the gap in the mean of both models is within run-to-run noise, and gepa-v1 does better on the held-out book. Re-run both after the held-out references are fixed (data 1.0.1).",
+    "sabcad-outliner and sabcad-outliner+script are a .docx outliner skill run through a benchmark adapter. They can't ship as a TOC skill as they are; sabcad-outliner-toc is the shippable form."
+  ],
+  "skills": {
+    "sabcad-outliner-toc": {
+      "status": "promoted",
+      "ships": true,
+      "approach": "A colleague's hand-written sa-bcad method (rules for ordinals, ལ་N announcements and ནི introducers, plus a code scheme), with a short TOC task section and gepa-v1's output rules on top. 21k characters of instructions.",
+      "made_by": "WeBuddhist, from a colleague's skill",
+      "source": "https://github.com/BuddhistAI/toc-extraction-tibetan/tree/3253458/variants/sabcad-outliner-toc"
+    },
+    "gepa-v1": {
+      "status": "challenger",
+      "ships": true,
+      "approach": "The seed prompt rewritten by DSPy GEPA, an automatic prompt optimiser, on 48 passages of one book (task model Haiku 4.5, reflection model Sonnet 4.5). 11k characters. Some rules quote its training passages.",
+      "made_by": "WeBuddhist",
+      "source": "https://github.com/BuddhistAI/toc-extraction-tibetan/tree/3253458/variants/gepa-v1"
+    },
+    "seed": {
+      "status": "baseline",
+      "ships": true,
+      "approach": "A one-paragraph hand-written prompt (0.6k characters), the starting point for GEPA. Any skill should beat it.",
+      "made_by": "WeBuddhist",
+      "source": "https://github.com/BuddhistAI/toc-extraction-tibetan/tree/3253458/variants/seed"
+    },
+    "sabcad-outliner": {
+      "status": "reference",
+      "ships": false,
+      "approach": "The colleague's original skill, written to produce a .docx outline, run through a benchmark adapter that asks for the heading list instead.",
+      "made_by": "A colleague of WeBuddhist (Tsong Khapa Outliner project)",
+      "source": "https://github.com/BuddhistAI/toc-extraction-tibetan/tree/3253458/variants/sabcad-outliner"
+    },
+    "sabcad-outliner+script": {
+      "status": "reference",
+      "ships": false,
+      "approach": "The same as sabcad-outliner, plus the output of its extract_sabcad.py script as a list of candidate headings. Helps Sonnet, hurts Haiku.",
+      "made_by": "A colleague of WeBuddhist (Tsong Khapa Outliner project)",
+      "source": "https://github.com/BuddhistAI/toc-extraction-tibetan/tree/3253458/variants/sabcad-outliner"
+    }
+  }
+}
