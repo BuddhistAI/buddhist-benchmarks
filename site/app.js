@@ -22,7 +22,7 @@
   };
 
   // Controls
-  $('f-version').innerHTML = D.versions.map((v) => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
+  $('f-version').innerHTML = D.versions.map((v) => `<option value="${esc(v)}">${esc(D.benchmarks[v].name)}</option>`).join('');
   const splits = Object.keys(D.rows[0].scores).sort((a, b) => (a === 'all' ? -1 : b === 'all' ? 1 : 0));
   if (!splits.includes(state.split)) state.split = 'all';
   $('f-split').innerHTML = splits.map((s) => `<option value="${esc(s)}"${s === state.split ? ' selected' : ''}>${esc(splitName(s))}</option>`).join('');
@@ -54,7 +54,22 @@
       (state.reference || skill(r.variant).status !== 'reference'));
   }
 
+  function renderBenchmark() {
+    const b = D.benchmarks[state.version];
+    const subsets = Object.entries(b.subsets).map(([k, n]) => `${n} ${esc(splitName(k).toLowerCase())}`).join(', ');
+    $('benchmark').innerHTML = `<h2>Benchmark: <a href="${esc(b.url)}">${esc(b.name)}</a></h2>
+<p>${b.purpose ? esc(b.purpose) : ''}</p>
+<dl class="facts">
+<div><dt>Data set</dt><dd><a href="${esc(b.url)}"><code>${esc(b.folder)}</code></a></dd></div>
+<div><dt>Version</dt><dd>${esc(b.version)} <span class="muted">(tag <code>${esc(b.tag)}</code>)</span></dd></div>
+<div><dt>Items</dt><dd>${b.items != null ? esc(b.items) : '–'}${subsets ? ` <span class="muted">(${subsets})</span>` : ''}</dd></div>
+<div><dt>Scorer</dt><dd>${esc(b.scorer_version.join(', '))}, headline <code>${esc(HL)}</code></dd></div>
+</dl>${b.note ? `<p class="sub">${esc(b.note)}</p>` : ''}
+<p class="sub">Scores are only compared within one benchmark version. A new version means re-running the skills.</p>`;
+  }
+
   function render() {
+    renderBenchmark();
     const rows = visibleRows();
     const models = [...new Set(rows.map((r) => r.model))].sort(byTier);
     const variants = [...new Set(rows.map((r) => r.variant))];
@@ -69,7 +84,7 @@
     models.forEach((m) => { bestPer[m] = Math.max(...variants.map((v) => val(get(v, m)) ?? -1)); });
 
     // Matrix
-    $('matrix-caption').textContent = `${metricName(HL)} on the ${splitName(state.split).toLowerCase()} split, data ${state.version}. Mean ± standard deviation over each run's repeats; best per model in green. Sorted by the mean over the models shown.`;
+    $('matrix-caption').textContent = `${metricName(HL)} on the ${splitName(state.split).toLowerCase()} split of ${D.benchmarks[state.version].name}. Mean ± standard deviation over each run's repeats; best per model in green. Sorted by the mean over the models shown.`;
     let h = '<thead><tr><th>Skill</th>' + models.map((m) => `<th>${esc(D.models[m].name)}</th>`).join('') +
       (models.length > 1 ? '<th class="num">Mean</th>' : '') + '</tr></thead><tbody>';
     if (!variants.length) h += `<tr><td colspan="${models.length + 2}" class="muted">No runs match these filters.</td></tr>`;

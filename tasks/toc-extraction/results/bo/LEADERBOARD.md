@@ -6,10 +6,12 @@ Headline metric: `structure_f1` (see [TASK.md](../../TASK.md)). Higher is better
 
 Currently promoted in buddhist-skills: [`toc-extraction` skill](https://github.com/BuddhistAI/buddhist-skills/tree/main/skills/toc-extraction-tibetan) 1.0.0 (variant sabcad-outliner-toc), promoted 2026-11-13. Full report: [REPORT.md](https://github.com/BuddhistAI/toc-extraction-tibetan/blob/main/REPORT.md).
 
-- sabcad-outliner-toc and gepa-v1 are a near-tie: the gap in the mean of both models is within run-to-run noise, and gepa-v1 does better on the held-out book. Re-run both after the held-out references are fixed (data 1.0.1).
+- sabcad-outliner-toc and gepa-v1 are a near-tie: the gap in the mean of both models is within run-to-run noise, and gepa-v1 does better on the held-out book. Re-run both after the held-out references are fixed (benchmark toc-extraction/bo 1.0.1).
 - sabcad-outliner and sabcad-outliner+script are a .docx outliner skill run through a benchmark adapter. They can't ship as a TOC skill as they are; sabcad-outliner-toc is the shippable form.
 
-## Data 1.0.0
+## Benchmark toc-extraction/bo 1.0.0
+
+Data set [`tasks/toc-extraction/data/bo/v1/`](https://github.com/BuddhistAI/buddhist-benchmarks/tree/toc-extraction/bo%401.0.0/tasks/toc-extraction/data/bo/v1) at tag `toc-extraction/bo@1.0.0`: 85 items; 76 same book, 9 held out book; scorer 1.0.0. First real Tibetan benchmark. Find the sa-bcad outline headings in passages of Tibetan commentary whose formatting and line breaks were stripped, with their nesting level and start position.
 
 ### Claude Haiku 5.5 (`claude-haiku-5-5`)
 
