@@ -1,0 +1,55 @@
+name: hf-sync
+
+# Publishes released data sets from GitHub (the source of truth) to Hugging Face:
+#   tag <task>/<lang>@<version>  ->  https://huggingface.co/datasets/BuddhistAI/<task>-<language>  tag v<version>
+# plus the results table -> https://huggingface.co/datasets/BuddhistAI/buddhist-benchmarks-results
+# Release tags are created by the leaderboards workflow (pages.yml). Tags pushed with the
+# workflow token do not start other workflows, so this one runs after it finishes instead.
+# Every run is a dry run first (export, validate the card, load with `datasets`).
+# Publishing needs the secret HF_TOKEN (write access to the BuddhistAI org on Hugging Face);
+# without it the job stops after the dry run, green. Idempotent: only versions Hugging Face
+# does not have yet are uploaded. Details: docs/huggingface.md.
+on:
+  workflow_run:
+    workflows: [leaderboards]
+    types: [completed]
+  push:
+    tags: ["*@*"]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Only this release tag (e.g. toc-extraction/bo@2.0.0); empty = everything missing"
+        required: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: hf-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      HF_TOKEN: ${{ secrets.HF_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+      - run: git fetch --tags --force --quiet
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install "datasets>=3.0" "huggingface_hub>=0.30"
+      - name: Dry run (export, validate cards, load with datasets)
+        run: python3 scripts/hf_sync.py check
+      - name: Skip publishing (no HF_TOKEN)
+        if: env.HF_TOKEN == ''
+        run: echo "::notice::HF_TOKEN is not set, so nothing was published. Add it as an org Actions secret (docs/huggingface.md)."
+      - name: Publish to Hugging Face
+        if: env.HF_TOKEN != ''
+        env:
+          ONLY_TAG: ${{ github.event.inputs.tag }}
+        run: python3 scripts/hf_sync.py push ${ONLY_TAG:+--tag "$ONLY_TAG"}

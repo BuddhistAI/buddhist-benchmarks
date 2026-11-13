@@ -6,6 +6,7 @@
 2. Data sets are versioned with semver (see [VERSIONING.md](./VERSIONING.md)): new corner cases are a minor bump, fixed references a patch bump, a scorer or format change a major bump (new `v<N>/` folder). Record every change in the task's `CHANGELOG.md`.
 3. Create `tasks/<task>/results/<code>/skills.json` (see [docs/results.md](./docs/results.md)); `LEADERBOARD.md` is generated once the first result is in.
 4. Run `python3 scripts/check.py`.
+5. Once merged, CI tags the release (`<task>/<code>@<version>`) and publishes it to Hugging Face as `BuddhistAI/<task>-<language>`, tag `v<version>` ([docs/huggingface.md](./docs/huggingface.md)). Never edit the Hugging Face copy; change the data here and bump the version.
 
 Prefer texts that represent real work: real OCR, real editions, real page layouts. 30 or more items is a good first set; say in the README how they were chosen.
 

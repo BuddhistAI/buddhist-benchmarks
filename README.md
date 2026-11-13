@@ -60,6 +60,15 @@ Every data set is one standard JSONL file: each line is an item with `id`, `inpu
 
 The skill can live anywhere: buddhist-skills `drafts/`, a fork, or another organization's repo. The leaderboard cites its exact commit.
 
+## On Hugging Face
+
+Every released data set is published automatically to the [BuddhistAI](https://huggingface.co/BuddhistAI) org on Hugging Face, one dataset per task and language, tagged with its version, plus a results dataset with every leaderboard run. GitHub stays the source of truth; fix data here, not there. See [docs/huggingface.md](./docs/huggingface.md).
+
+```python
+from datasets import load_dataset
+ds = load_dataset("BuddhistAI/toc-extraction-tibetan", revision="v2.0.0")
+```
+
 ## Contributing
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md). Design rationale for both repos: [buddhist-skills docs/design.md](https://github.com/BuddhistAI/buddhist-skills/blob/main/docs/design.md).
