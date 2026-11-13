@@ -187,3 +187,11 @@ a.open { text-decoration: none; color: var(--muted); font-size: 0.9em; margin-le
 a.btn { display: inline-block; padding: 3px 10px; border: 1px solid var(--accent); border-radius: 6px; text-decoration: none; font-weight: 600; margin-right: 8px; }
 a.btn:hover { background: var(--accent-soft); }
 ol.rank a.name::after, table.arena a.skill[href^="http"]::after { content: " ↗"; font-size: 0.8em; color: var(--muted); font-weight: 400; }
+.gain { display: block; font-size: 0.75rem; font-weight: 600; text-align: right; color: var(--muted); }
+.gain.up { color: var(--good); }
+.gain.down { color: #c0392b; }
+table.arena .gain { display: inline; font-size: 0.9rem; }
+ol.rank li.base, table.arena tr.base td { background: var(--surface-2); }
+ol.rank li.base { border-radius: 8px; border-bottom: 0; margin-top: 4px; }
+ol.rank li.base .name, table.arena tr.base .skill { color: var(--muted); font-style: italic; }
+ol.rank li.base .bar > i, table.arena tr.base .bar > i { background: repeating-linear-gradient(90deg, var(--muted) 0 4px, transparent 4px 7px); }

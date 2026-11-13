@@ -155,7 +155,7 @@ def summarize(board, models):
     cheapest = min(strong, key=lambda r: (models[r['model']]['tier'], -headline(r)))
     return {
         'versions': versions, 'data_version': versions[0], 'best': best, 'champion': champ_best,
-        'cheapest': cheapest, 'skills': len({r['variant'] for r in latest}),
+        'cheapest': cheapest, 'skills': len({r['variant'] for r in latest} - {meta.get('baseline')}),
         'models': sorted({r['model'] for r in latest}, key=lambda m: models[m]['tier']),
         'last_tested': max(r['date'] for r in latest), 'headline': best['headline'],
         'benchmarks': {v: benchmark_info(board['task']['id'], board['lang'], v, rows) for v in versions},
@@ -251,12 +251,18 @@ def leaderboard_md(board, models, summary):
         for m in sorted({r['model'] for r in vrows}, key=lambda m: models[m]['tier']):
             mrows = sorted([r for r in vrows if r['model'] == m], key=headline, reverse=True)
             lines += [f'### {models[m]["name"]} (`{m}`)', '']
-            head = (['Rank', 'Skill', 'Status', f'{hl}'] + [f'{hl}, {split_name(s).lower()}' for s in splits] +
+            base = next((r for r in mrows if r['variant'] == meta.get('baseline')), None)
+            mrows = [r for r in mrows if r is not base] + ([base] if base else [])
+            gain = lambda r: ('before' if r is base else f"{headline(r) - headline(base):+.3f}") if base else '–'
+            head = (['Rank', 'Skill', 'Status', f'{hl}', 'Gain vs. no skill'] + [f'{hl}, {split_name(s).lower()}' for s in splits] +
                     other + ['Cost', 'Date', 'Skill ref', 'Run'])
             lines += ['| ' + ' | '.join(head) + ' |', '|' + ' --- |' * len(head)]
-            for i, r in enumerate(mrows, 1):
+            n = 0
+            for r in mrows:
                 st = meta['skills'].get(r['variant'], {}).get('status', '')
-                cells = ([str(i), skill_label(r, meta), st, fmt(r['scores']['all'][hl])] +
+                ranked = r is not base and st != 'reference'
+                n += ranked
+                cells = ([str(n) if ranked else '–', skill_label(r, meta), st, fmt(r['scores']['all'][hl]), gain(r)] +
                          [fmt(r['scores'].get(s, {}).get(hl)) for s in splits] +
                          [fmt(r['scores']['all'].get(k)) for k in other] +
                          [fmt_cost(r['cost_usd']), r['date'], f"`{r['skill_ref']}`", f"[run](./{r['_run']}/)"])
@@ -331,9 +337,11 @@ def rank_views(board, models, summary):
     for m in ms:
         views.append((models[m]['name'].replace('Claude ', ''), [(v, d, headline(d[m])) for v, d in by_variant.items() if m in d]))
     out = []
+    base_v = meta.get('baseline')
     for label, items in views:
-        items.sort(key=lambda x: -x[2])
-        out.append((label, [dict(variant=v, version=next(iter(d.values()))['skill_version'],
+        items.sort(key=lambda x: (x[0] == base_v, -x[2]))
+        base = next((sc for v, d, sc in items if v == base_v), None)
+        out.append((label, [dict(variant=v, base=v == base_v, gain=None if base is None or v == base_v else sc - base, version=next(iter(d.values()))['skill_version'],
                                  status=meta['skills'].get(v, {}).get('status', ''), name=display(meta, v), score=sc,
                                  link=meta['skills'].get(v, {}).get('skill_md') or meta['skills'].get(v, {}).get('source')) for v, d, sc in items]))
     return out
@@ -345,14 +353,18 @@ def rank_list(items, hidden):
     lis = []
     n = 0
     for i in items:
-        n += 0 if i['status'] == 'reference' else 1
-        w = 100 if hi == lo else 12 + 88 * (i['score'] - lo) / (hi - lo)
         st = i['status']
-        badge = f'<span class="badge {e(st)}">{"best skill" if st == "promoted" else e(st)}</span>' if st else ''
-        lis.append(f'''<li class="{'ref' if st == 'reference' else f'r{n}' if n <= 3 else ''}">
-<span class="pos">{'–' if st == 'reference' else n}</span>
+        ranked = st != 'reference' and not i['base']
+        n += ranked
+        w = 100 if hi == lo else 12 + 88 * (i['score'] - lo) / (hi - lo)
+        badge = '' if i['base'] else f'<span class="badge {e(st)}">{"best skill" if st == "promoted" else e(st)}</span>' if st else ''
+        cls = 'base' if i['base'] else 'ref' if st == 'reference' else f'r{n}' if n <= 3 else ''
+        gain = (f'<span class="gain">before</span>' if i['base'] else
+                f'<span class="gain {"up" if i["gain"] >= 0 else "down"}">{i["gain"]:+.3f}</span>' if i['gain'] is not None else '')
+        lis.append(f'''<li class="{cls}">
+<span class="pos">{n if ranked else '–'}</span>
 <span class="who">{f'<a class="name" href="{e(i["link"])}" title="Open the skill as tested">{e(i["name"])}</a>' if i.get("link") else f'<span class="name">{e(i["name"])}</span>'}{badge}<span class="bar"><i style="width:{w:.0f}%"></i></span></span>
-<span class="val">{i["score"]:.3f}</span>
+<span class="val">{i["score"]:.3f}{gain}</span>
 </li>''')
     return f'<ol class="rank"{" hidden" if hidden else ""}>{"".join(lis)}</ol>'
 
@@ -457,7 +469,7 @@ def site_task(board, models, summary):
         'task': t, 'language': lang, 'headline': summary['headline'], 'versions': summary['versions'],
         'models': {m: models[m] for m in {r['model'] for r in rows}},
         'skills': meta.get('skills', {}), 'splits': meta.get('splits', {}),
-        'promoted': meta.get('promoted'), 'benchmarks': summary['benchmarks'],
+        'promoted': meta.get('promoted'), 'benchmarks': summary['benchmarks'], 'baseline': meta.get('baseline'),
         'rows': [{k: v for k, v in r.items() if not k.startswith('_')} | {
             'run_url': f"{REPO}/tree/main/{r['_path']}"} for r in rows],
     }

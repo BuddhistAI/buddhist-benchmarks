@@ -99,25 +99,31 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
       const x = sc(get(v, state.view));
       return x ? x.mean : null;
     };
-    const list = variants.map((v) => ({ v, s: score(v) })).filter((x) => x.s != null).sort((a, b) => b.s - a.s);
+    const BASE = D.baseline;
+    const list = variants.map((v) => ({ v, s: score(v) })).filter((x) => x.s != null)
+      .sort((a, b) => (a.v === BASE) - (b.v === BASE) || b.s - a.s);
+    const baseScore = (list.find((x) => x.v === BASE) || {}).s;
+    const gain = (v, x) => (v === BASE ? '<span class="gain">before</span>' : baseScore == null ? '–'
+      : `<span class="gain ${x - baseScore >= 0 ? 'up' : 'down'}">${(x - baseScore >= 0 ? '+' : '') + (x - baseScore).toFixed(3)}</span>`);
     const lo = Math.min(...list.map((x) => x.s)) - 0.05, hi = Math.max(...list.map((x) => x.s));
     const width = (x) => (hi === lo ? 100 : 12 + 88 * (x - lo) / (hi - lo));
 
     const mean = state.view === 'mean';
-    let h = '<thead><tr><th class="num">Rank</th><th>Skill</th><th>' + esc(metricName(HL)) + `<div class="sub">${esc(splitName(state.split))}${mean ? ', mean of models' : ''}</div></th>`;
+    let h = '<thead><tr><th class="num">Rank</th><th>Skill</th><th>' + esc(metricName(HL)) + `<div class="sub">${esc(splitName(state.split))}${mean ? ', mean of models' : ''}</div></th>` + (BASE ? '<th class="num">Gain<div class="sub">vs. no skill</div></th>' : '');
     h += mean ? models.map((m) => `<th class="num">${esc(shortModel(m))}</th>`).join('')
       : '<th class="num">Std. dev.</th>' + Object.keys(rows[0].scores.all).filter((k) => k !== HL).map((k) => `<th class="num">${esc(metricName(k))}<div class="sub">All</div></th>`).join('') + '<th class="num">Repeats</th><th>Run</th>';
     h += '<th>Made by</th></tr></thead><tbody>';
     let rank = 0;
     list.forEach(({ v, s }) => {
-      const ref = skill(v).status === 'reference';
+      const isBase = v === BASE;
+      const ref = skill(v).status === 'reference' || isBase;
       if (!ref) rank += 1;
       const any = rows.find((r) => r.variant === v);
       const r = mean ? null : get(v, state.view);
-      h += `<tr class="${ref ? 'ref' : 'r' + (rank <= 3 ? rank : '')}">
+      h += `<tr class="${isBase ? 'base' : ref ? 'ref' : 'r' + (rank <= 3 ? rank : '')}">
 <td class="num"><span class="pos" title="${ref ? 'Reference run: not ranked, it can\'t ship as this task\'s skill' : ''}">${ref ? '–' : rank}</span></td>
 <td><a class="skill" href="${esc(skill(v).skill_md || '#skill-' + v)}" title="Open the skill as tested">${esc(nameOf(v))}</a> <span class="muted">${esc(any.skill_version)}</span>${badge(v)} <a class="open" href="#skill-${esc(v)}" title="About this skill">ⓘ</a></td>
-<td class="scorecell"><span class="big">${s.toFixed(3)}</span><span class="bar"><i style="width:${width(s).toFixed(0)}%"></i></span></td>`;
+<td class="scorecell"><span class="big">${s.toFixed(3)}</span><span class="bar"><i style="width:${width(s).toFixed(0)}%"></i></span></td>` + (BASE ? `<td class="num">${gain(v, s)}</td>` : '');
       h += mean ? models.map((m) => `<td class="num">${sc(get(v, m)) ? sc(get(v, m)).mean.toFixed(3) : '–'}</td>`).join('')
         : `<td class="num muted nowrap">${pm(sc(r)) || '–'}</td>` + Object.keys(r.scores.all).filter((k) => k !== HL).map((k) => `<td class="num">${r.scores[state.split] && r.scores[state.split][k] ? r.scores[state.split][k].mean.toFixed(3) : '–'}</td>`).join('') +
           `<td class="num">${esc(r.repeats)}</td><td><a href="${esc(r.run_url)}">run</a></td>`;
@@ -125,9 +131,9 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
     });
     if (!list.length) h += '<tr><td colspan="9" class="muted">No runs match.</td></tr>';
     $('ranked').innerHTML = h + '</tbody>';
-    $('ranked-caption').textContent = `${list.length} skills on ${D.benchmarks[state.version].name}. Higher is better. ` +
+    $('ranked-caption').textContent = `${list.filter((x) => x.v !== BASE).length} skills on ${D.benchmarks[state.version].name}. Higher is better. ` +
       (mean ? `Each model's score is the mean over its runs; the ranking uses the mean of ${models.map(shortModel).join(' and ')}.` : `Mean over ${shortModel(state.view)}'s repeats.`) +
-      ' Reference runs are shown for comparison but not ranked.';
+      ' Gain is the score minus the no-skill baseline (the "before" row) on the same models and passages. Reference runs are shown for comparison but not ranked.';
 
     // Every metric and run, per model
     let out = '';
@@ -150,7 +156,7 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
   }
 
   // Skill cards (static)
-  const order = { promoted: 0, challenger: 1, baseline: 2, reference: 3 };
+  const order = { promoted: 0, challenger: 1, reference: 2, baseline: 3 };
   $('skills').innerHTML = Object.entries(D.skills).filter(([, s]) => !s.hidden).sort((a, b) => (order[a[1].status] ?? 9) - (order[b[1].status] ?? 9)).map(([v, s]) => {
     const versions = [...new Set(D.rows.filter((r) => r.variant === v).map((r) => r.skill_version))].join(', ');
     return `<div class="card" id="skill-${esc(v)}"><h3>${esc(nameOf(v))} <span class="muted">${esc(versions)}</span>${badge(v)}</h3>${skill(v).name ? `<p class="sub">Variant <code>${esc(v)}</code></p>` : ''}
