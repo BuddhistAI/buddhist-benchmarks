@@ -1,15 +1,16 @@
 #!/usr/bin/env python3
-"""Score toc-extraction outputs against references.
+"""Score toc-extraction predictions against a data set.
 
-python3 score.py --outputs DIR --references DIR [--inputs DIR] [--language bo] > scores.json
+python3 score.py --data ../data/bo/v2/test.jsonl --predictions predictions.jsonl [--language bo] > scores.json
 
-Each DIR holds <item-id>.json files in the format described in ../TASK.md.
-Two matching modes, chosen per item:
-- position: every reference entry has "start" (a character offset into the input). Predicted entries are placed by
-  their "start", or by finding their "anchor" verbatim in the input, and match a reference entry within TOL chars.
-  Needs the input text (--inputs, default: the "inputs" folder next to --references).
+--data          the data set: JSONL, one item per line: {"id", "input", "target": {"entries": [...]}, "metadata"}.
+--predictions   what the skill produced, either a JSONL file of {"id", "output": {"entries": [...]}} lines,
+                or a folder of <id>.json files each holding {"entries": [...]}. Missing items score as empty.
+Formats: ../TASK.md. Two matching modes, chosen per item:
+- position: every target entry has "start" (a character offset into the input). Predicted entries are placed by
+  their "start", or by finding their "anchor" verbatim in the input, and match a target entry within TOL chars.
 - title: otherwise, titles are matched in order by normalized similarity.
-Deterministic, standard library only.
+Reports micro-averaged metrics over all items, and per metadata.subset. Deterministic, standard library only.
 """
 import argparse
 import json
@@ -19,7 +20,7 @@ import unicodedata
 from difflib import SequenceMatcher
 from pathlib import Path
 
-SCORER_VERSION = "1.0.0"
+SCORER_VERSION = "2.0.0"  # 2.0.0: reads the JSONL format; matching and metrics unchanged from 1.0.0
 THRESHOLD = 0.9
 TOL = 3  # chars of slack in position mode (e.g. a missing leading ༈ and space)
 
@@ -112,36 +113,56 @@ def score_item(pred, ref, language, text=None):
             "mode": "position" if position else "title"}
 
 
+def load_predictions(path):
+    if path.is_dir():
+        return {p.stem: json.loads(p.read_text(encoding="utf-8")) for p in path.glob("*.json")}
+    preds = {}
+    for line in path.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            row = json.loads(line)
+            preds[row["id"]] = row["output"]
+    return preds
+
+
+def metrics(t):
+    return {
+        "structure_f1": round(f1(t["matched_level"], t["n_pred"], t["n_ref"]), 4),
+        "title_f1": round(f1(t["matched"], t["n_pred"], t["n_ref"]), 4),
+        "level_accuracy": round(t["matched_level"] / t["matched"], 4) if t["matched"] else 0.0,
+    }
+
+
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--outputs", required=True, type=Path)
-    ap.add_argument("--references", required=True, type=Path)
-    ap.add_argument("--inputs", type=Path, help="input texts, for position mode (default: inputs/ next to --references)")
+    ap.add_argument("--data", required=True, type=Path, help="data set JSONL (id, input, target, metadata)")
+    ap.add_argument("--predictions", required=True, type=Path, help="predictions JSONL (id, output) or a folder of <id>.json")
     ap.add_argument("--language", default="", help="ISO code of the data set, for script-specific normalization")
     args = ap.parse_args()
-    inputs = args.inputs or args.references.parent / "inputs"
+    preds = load_predictions(args.predictions)
 
-    items, totals = {}, {"n_pred": 0, "n_ref": 0, "matched": 0, "matched_level": 0}
-    for ref_path in sorted(args.references.glob("*.json")):
-        ref = json.loads(ref_path.read_text(encoding="utf-8"))["entries"]
-        out_path = args.outputs / ref_path.name
-        pred = json.loads(out_path.read_text(encoding="utf-8"))["entries"] if out_path.exists() else []
-        in_path = inputs / f"{ref_path.stem}.txt"
-        text = in_path.read_text(encoding="utf-8") if in_path.exists() else None
-        s = score_item(pred, ref, args.language, text)
-        s["missing_output"] = not out_path.exists()
-        items[ref_path.stem] = s
-        for k in totals:
+    keys = ("n_pred", "n_ref", "matched", "matched_level")
+    items, totals, subsets = {}, dict.fromkeys(keys, 0), {}
+    for line in args.data.read_text(encoding="utf-8").splitlines():
+        if not line.strip():
+            continue
+        row = json.loads(line)
+        ref = row["target"]["entries"]
+        out = preds.get(row["id"])
+        s = score_item(out["entries"] if out else [], ref, args.language, row["input"])
+        s["missing_output"] = out is None
+        items[row["id"]] = s
+        sub = subsets.setdefault((row.get("metadata") or {}).get("subset") or "all", dict.fromkeys(keys, 0))
+        for k in keys:
             totals[k] += s[k]
+            sub[k] += s[k]
 
     result = {
         "task": "toc-extraction",
         "scorer_version": SCORER_VERSION,
         "headline": "structure_f1",
-        "structure_f1": round(f1(totals["matched_level"], totals["n_pred"], totals["n_ref"]), 4),
-        "title_f1": round(f1(totals["matched"], totals["n_pred"], totals["n_ref"]), 4),
-        "level_accuracy": round(totals["matched_level"] / totals["matched"], 4) if totals["matched"] else 0.0,
+        **metrics(totals),
         "totals": totals,
+        "by_subset": {k: {**metrics(v), "totals": v} for k, v in sorted(subsets.items())} if len(subsets) > 1 else {},
         "items": items,
     }
     json.dump(result, sys.stdout, ensure_ascii=False, indent=2)

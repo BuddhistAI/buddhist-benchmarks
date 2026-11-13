@@ -10,15 +10,14 @@ Benchmarks grow: every time someone finds a case that a skill gets wrong, it sho
 
 ## Where versions live
 
-- **Folder:** `tasks/<task>/data/<code>/v<MAJOR>/`. Minor and patch changes are made in place in that folder; a major change starts a new folder (`v2/`) and the old one stays for history.
+- **Folder:** `tasks/<task>/data/<code>/v<MAJOR>/`. Minor and patch changes are made in place in that folder; a major change starts a new folder (`v2/`). Only the current major version stays on `main`; older ones are at their git tag.
 - **Exact version:** the data set's `README.md` (`**Version:**` line) and the task's `CHANGELOG.md`.
 - **Git tag:** each release is tagged `<task>/<code>@<version>`, for example `toc-extraction/bo@1.0.0`, so any older version can be checked out exactly.
 - **Scorer:** `SCORER_VERSION` in `scorer/score.py`, printed in every `scores.json`. Changing it is a major change for every language of that task.
 
 ## Adding corner cases (minor)
 
-1. Add the item to `inputs/` and `references/`.
-2. Add it to the data set's `items.json` with a `note` saying what it tests (for example "heading split by a page break") and an `origin` (where the case was found: a run, an issue, a user report).
+1. Add a line to the data set's JSONL file, with `metadata.note` saying what it tests (for example "heading split by a page break") and `metadata.origin` (where the case was found: a run, an issue, a user report).
 3. Bump the version in the README and add a CHANGELOG entry listing the new items.
 4. Tag the release after merge.
 

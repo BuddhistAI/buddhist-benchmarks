@@ -2,8 +2,8 @@
   "schema": "buddhist-benchmarks/result@1",
   "task": "toc-extraction",
   "language": "bo",
-  "data_version": "1.0.0",
-  "scorer_version": "1.0.0",
+  "data_version": "2.0.0",
+  "scorer_version": "2.0.0",
   "skill": "toc-extraction-tibetan",
   "variant": "gepa-v1",
   "skill_version": "1.0.0",
@@ -105,5 +105,6 @@
   "cost_usd": null,
   "date": "2026-11-13",
   "by": "WeBuddhist",
-  "report": "https://github.com/BuddhistAI/toc-extraction-tibetan/blob/main/REPORT.md"
+  "report": "https://github.com/BuddhistAI/toc-extraction-tibetan/blob/main/REPORT.md",
+  "notes": "Measured on data 1.0.0 with scorer 1.0.0. Data 2.0.0 has the same items and answers in the standard format, and scorer 2.0.0 the same metric: re-scoring the stored outputs gives identical numbers."
 }

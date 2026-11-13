@@ -163,7 +163,7 @@ def summarize(board, models):
 
 
 def benchmark_info(task_id, lang, version, rows):
-    """What a data version is: name, tag, folder, items, scorer. Read from the data set's README and items.json."""
+    """What a data version is: name, tag, folder, items, scorer. Read from the data set's README and test.jsonl."""
     major = version.split('.')[0]
     rel = f'tasks/{task_id}/data/{lang}/v{major}'
     d = ROOT / rel
@@ -182,15 +182,14 @@ def benchmark_info(task_id, lang, version, rows):
         m = re.search(r'\*\*Version:\*\*\s*([0-9.]+)', text)
         if m and m.group(1) != version:
             info['note'] = f'the data folder is now at {m.group(1)}; these rows were scored on {version}'
-    items_file = d / 'items.json'
-    if items_file.exists():
-        items = json.loads(items_file.read_text(encoding='utf-8'))
-        info['items'] = len(items)
-        for it in items:
-            if it.get('subset'):
-                info['subsets'][it['subset']] = info['subsets'].get(it['subset'], 0) + 1
-    elif (d / 'inputs').exists():
-        info['items'] = sum(1 for _ in (d / 'inputs').glob('*'))
+    data_file = d / 'test.jsonl'
+    if data_file.exists():
+        rows = [json.loads(l) for l in data_file.read_text(encoding='utf-8').splitlines() if l.strip()]
+        info['items'] = len(rows)
+        for row in rows:
+            sub = (row.get('metadata') or {}).get('subset')
+            if sub:
+                info['subsets'][sub] = info['subsets'].get(sub, 0) + 1
     return info
 
 

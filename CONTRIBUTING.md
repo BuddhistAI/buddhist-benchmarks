@@ -2,7 +2,7 @@
 
 ## Add test data for your language
 
-1. Create `tasks/<task>/data/<code>/v1/` with `inputs/`, `references/`, and a `README.md` that states: version, purpose, number of items, source and license of the texts, who made the references, and any shared resource versions (with commit).
+1. Create `tasks/<task>/data/<code>/v1/` with `test.jsonl` (one item per line: `id`, `input`, `target`, `metadata`; see the task's `TASK.md`) and a `README.md` dataset card: Hugging Face YAML front matter (license, language, `configs` pointing at `test.jsonl`), then version, purpose, number of items, source and license of the texts, who made the answers, any shared resource versions (with commit), and a worked example. [toc-extraction/bo/v2](./tasks/toc-extraction/data/bo/v2/README.md) is the template.
 2. Data sets are versioned with semver (see [VERSIONING.md](./VERSIONING.md)): new corner cases are a minor bump, fixed references a patch bump, a scorer or format change a major bump (new `v<N>/` folder). Record every change in the task's `CHANGELOG.md`.
 3. Create `tasks/<task>/results/<code>/skills.json` (see [docs/results.md](./docs/results.md)); `LEADERBOARD.md` is generated once the first result is in.
 4. Run `python3 scripts/check.py`.

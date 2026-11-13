@@ -6,6 +6,7 @@ python3 scripts/check.py --languages  # also check data folder codes against bud
 """
 import json
 import subprocess
+import tempfile
 import sys
 import urllib.request
 from pathlib import Path
@@ -43,28 +44,54 @@ for task in index["tasks"]:
             errors.append(f"{rel}: missing README.md")
         else:
             text = readme.read_text(encoding="utf-8")
-            for field in README_FIELDS:
-                if f"**{field}:**" not in text:
-                    errors.append(f"{rel}/README.md: missing '**{field}:**'")
-        inputs = {p.stem for p in (d / "inputs").glob("*")}
-        refs = {p.stem for p in (d / "references").glob("*")}
-        if not inputs:
-            errors.append(f"{rel}: no inputs")
-        if inputs != refs:
-            errors.append(f"{rel}: inputs and references do not match: {sorted(inputs ^ refs)}")
-        if not (tdir / "results" / code / "LEADERBOARD.md").exists():
-            errors.append(f"tasks/{tid}/results/{code}: missing LEADERBOARD.md")
-        # The scorer must give a perfect score to the references themselves.
-        out = subprocess.run(
-            [sys.executable, str(tdir / "scorer" / "score.py"), "--language", code, "--outputs", str(d / "references"), "--references", str(d / "references")],
-            capture_output=True, text=True,
-        )
-        if out.returncode != 0:
-            errors.append(f"{rel}: scorer failed: {out.stderr.strip()[-300:]}")
-        else:
-            s = json.loads(out.stdout)
-            if s[s["headline"]] != 1.0:
-                errors.append(f"{rel}: references do not score 1.0 against themselves ({s['headline']}={s[s['headline']]})")
+            front = text.split("\n---", 1)[0] if text.startswith("---\n") else ""
+            if "\nlicense:" not in front or "data_files" not in front:
+                errors.append(f"{rel}/README.md: needs Hugging Face YAML front matter with license and configs/data_files")
+            if d.name != "example":
+                for field in README_FIELDS:
+                    if f"**{field}:**" not in text:
+                        errors.append(f"{rel}/README.md: missing '**{field}:**'")
+        for old in ("inputs", "references", "items.json"):
+            if (d / old).exists():
+                errors.append(f"{rel}: old layout ({old}); data sets are one JSONL file (see CONTRIBUTING.md)")
+        files = sorted(d.glob("*.jsonl"))
+        if not files:
+            errors.append(f"{rel}: no .jsonl data file")
+        for f in files:
+            item_ids = []
+            for n, line in enumerate(f.read_text(encoding="utf-8").splitlines(), 1):
+                if not line.strip():
+                    continue
+                try:
+                    row = json.loads(line)
+                except json.JSONDecodeError as e:
+                    errors.append(f"{rel}/{f.name}:{n}: not JSON ({e})")
+                    continue
+                missing = [k for k in ("id", "input", "target") if k not in row]
+                if missing:
+                    errors.append(f"{rel}/{f.name}:{n}: missing {', '.join(missing)}")
+                item_ids.append(row.get("id"))
+            if len(item_ids) != len(set(item_ids)):
+                errors.append(f"{rel}/{f.name}: duplicate ids")
+            # The scorer must give a perfect score to the answers themselves.
+            with tempfile.NamedTemporaryFile("w", suffix=".jsonl", delete=False, encoding="utf-8") as tmp:
+                for line in f.read_text(encoding="utf-8").splitlines():
+                    if line.strip():
+                        row = json.loads(line)
+                        tmp.write(json.dumps({"id": row["id"], "output": row["target"]}, ensure_ascii=False) + "\n")
+            out = subprocess.run(
+                [sys.executable, str(tdir / "scorer" / "score.py"), "--language", code, "--data", str(f), "--predictions", tmp.name],
+                capture_output=True, text=True,
+            )
+            Path(tmp.name).unlink()
+            if out.returncode != 0:
+                errors.append(f"{rel}/{f.name}: scorer failed: {out.stderr.strip()[-300:]}")
+            else:
+                sc = json.loads(out.stdout)
+                if sc[sc["headline"]] != 1.0:
+                    errors.append(f"{rel}/{f.name}: answers do not score 1.0 against themselves ({sc['headline']}={sc[sc['headline']]})")
+        if d.name != "example" and not (tdir / "results" / code / "skills.json").exists():
+            errors.append(f"tasks/{tid}/results/{code}: missing skills.json")
 
 # Leaderboards are generated from result.json files and must be up to date.
 out = subprocess.run([sys.executable, str(ROOT / "scripts" / "build_leaderboards.py"), "--check"], capture_output=True, text=True)

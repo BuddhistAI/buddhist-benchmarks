@@ -1,6 +1,6 @@
 {
   "task": "toc-extraction",
-  "scorer_version": "1.0.0",
+  "scorer_version": "2.0.0",
   "headline": "structure_f1",
   "structure_f1": 0.802,
   "title_f1": 0.8787,
@@ -10,6 +10,30 @@
     "n_ref": 394,
     "matched": 355,
     "matched_level": 324
+  },
+  "by_subset": {
+    "held-out-book": {
+      "structure_f1": 0.7077,
+      "title_f1": 0.7692,
+      "level_accuracy": 0.92,
+      "totals": {
+        "n_pred": 40,
+        "n_ref": 25,
+        "matched": 25,
+        "matched_level": 23
+      }
+    },
+    "same-book": {
+      "structure_f1": 0.8102,
+      "title_f1": 0.8883,
+      "level_accuracy": 0.9121,
+      "totals": {
+        "n_pred": 374,
+        "n_ref": 369,
+        "matched": 330,
+        "matched_level": 301
+      }
+    }
   },
   "items": {
     "IBA-LWS-08-001": {

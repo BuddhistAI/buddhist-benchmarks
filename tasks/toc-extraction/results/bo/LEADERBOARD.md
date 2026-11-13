@@ -9,9 +9,9 @@ Best skill (installed from buddhist-skills): [`toc-extraction` skill](https://gi
 - TOC extraction (sa-bcad method) and TOC extraction (GEPA-optimized) are a near-tie: the gap in the mean of both models is within run-to-run noise, and the GEPA-optimized skill does better on the held-out book. Re-run both after the held-out references are fixed (benchmark toc-extraction/bo 1.0.1).
 - sabcad-outliner and sabcad-outliner+script are a .docx outliner skill run through a benchmark adapter. They can't ship as a TOC skill as they are; TOC extraction (sa-bcad method) is the shippable form.
 
-## Benchmark toc-extraction/bo 1.0.0
+## Benchmark toc-extraction/bo 2.0.0
 
-Data set [`tasks/toc-extraction/data/bo/v1/`](https://github.com/BuddhistAI/buddhist-benchmarks/tree/toc-extraction/bo%401.0.0/tasks/toc-extraction/data/bo/v1) at tag `toc-extraction/bo@1.0.0`: 85 items; 76 same book, 9 held out book; scorer 1.0.0. First real Tibetan benchmark. Find the sa-bcad outline headings in passages of Tibetan commentary whose formatting and line breaks were stripped, with their nesting level and start position.
+Data set [`tasks/toc-extraction/data/bo/v2/`](https://github.com/BuddhistAI/buddhist-benchmarks/tree/toc-extraction/bo%402.0.0/tasks/toc-extraction/data/bo/v2) at tag `toc-extraction/bo@2.0.0`: 85 items; 76 same book, 9 held out book; scorer 2.0.0. Find the sa-bcad outline headings in passages of Tibetan commentary whose formatting and line breaks were stripped, with their nesting level and start position.
 
 ### Claude Haiku 5.5 (`claude-haiku-5-5`)
 

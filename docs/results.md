@@ -24,8 +24,8 @@ models.json                   model display names and price tiers
   "schema": "buddhist-benchmarks/result@1",
   "task": "toc-extraction",
   "language": "bo",
-  "data_version": "1.0.0",
-  "scorer_version": "1.0.0",
+  "data_version": "2.0.0",
+  "scorer_version": "2.0.0",
   "skill": "toc-extraction-tibetan",
   "variant": "sabcad-outliner-toc",
   "skill_version": "1.0.0",
@@ -57,7 +57,7 @@ models.json                   model display names and price tiers
 | `model` | yes | Model ID; must be in `models.json`. |
 | `repeats` | yes | How many times the whole set was run. |
 | `headline` | yes | The task's headline metric (from TASK.md). |
-| `scores` | yes | Per split, per metric: `mean`, `std` (sample standard deviation over repeats, 0 for one repeat) and `runs`. `all` is required; other splits are the data set's subsets (`items.json`). |
+| `scores` | yes | Per split, per metric: `mean`, `std` (sample standard deviation over repeats, 0 for one repeat) and `runs`. `all` is required; other splits are the data set's subsets (`metadata.subset` in `test.jsonl`). |
 | `cost_usd` | yes | Total API cost of all repeats, or `null` if not recorded. |
 | `date`, `by` | yes | Date of the run and who ran it. |
 | `temperature`, `harness`, `report`, `notes` | no | Run settings, a link to a write-up, free text. |
