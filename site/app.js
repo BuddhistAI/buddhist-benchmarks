@@ -116,7 +116,7 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
       const r = mean ? null : get(v, state.view);
       h += `<tr class="${ref ? 'ref' : 'r' + (rank <= 3 ? rank : '')}">
 <td class="num"><span class="pos" title="${ref ? 'Reference run: not ranked, it can\'t ship as this task\'s skill' : ''}">${ref ? '–' : rank}</span></td>
-<td><a class="skill" href="#skill-${esc(v)}">${esc(nameOf(v))}</a> <span class="muted">${esc(any.skill_version)}</span>${badge(v)}</td>
+<td><a class="skill" href="${esc(skill(v).skill_md || '#skill-' + v)}" title="Open the skill as tested">${esc(nameOf(v))}</a> <span class="muted">${esc(any.skill_version)}</span>${badge(v)} <a class="open" href="#skill-${esc(v)}" title="About this skill">ⓘ</a></td>
 <td class="scorecell"><span class="big">${s.toFixed(3)}</span><span class="bar"><i style="width:${width(s).toFixed(0)}%"></i></span></td>`;
       h += mean ? models.map((m) => `<td class="num">${sc(get(v, m)) ? sc(get(v, m)).mean.toFixed(3) : '–'}</td>`).join('')
         : `<td class="num muted nowrap">${pm(sc(r)) || '–'}</td>` + Object.keys(r.scores.all).filter((k) => k !== HL).map((k) => `<td class="num">${r.scores[state.split] && r.scores[state.split][k] ? r.scores[state.split][k].mean.toFixed(3) : '–'}</td>`).join('') +
@@ -156,7 +156,7 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
     return `<div class="card" id="skill-${esc(v)}"><h3>${esc(nameOf(v))} <span class="muted">${esc(versions)}</span>${badge(v)}</h3>${skill(v).name ? `<p class="sub">Variant <code>${esc(v)}</code></p>` : ''}
 <p>${esc(s.approach || '')}</p>
 <p class="sub">${s.ships ? 'Can ship as this task\'s skill.' : 'Can\'t ship as it is; shown for comparison.'}${s.made_by ? ' Made by ' + esc(s.made_by) + '.' : ''}</p>
-<p class="small">${s.source ? `<a href="${esc(s.source)}">Source at the tested commit</a>` : ''}${D.promoted && D.promoted.variant === v ? ` · <a href="${esc(D.promoted.skill)}">Installed version</a>` : ''}</p></div>`;
+<p class="small">${s.skill_md ? `<a class="btn" href="${esc(s.skill_md)}">Open SKILL.md</a> ` : ''}${s.source ? `<a href="${esc(s.source)}">Folder at the tested commit</a>` : ''}${D.promoted && D.promoted.variant === v ? ` · <a href="${esc(D.promoted.skill)}">Installed version</a>` : ''}</p></div>`;
   }).join('');
 
   $('splits').innerHTML = Object.entries(D.splits).map(([s, d]) => `<dt>${esc(splitName(s))}</dt><dd>${esc(d)}</dd>`).join('');

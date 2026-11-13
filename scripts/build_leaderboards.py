@@ -217,7 +217,9 @@ def display(meta, variant):
 
 def skill_label(r, meta=None):
     name = display(meta, r['variant']) if meta else r['variant']
-    return f"{name} {r['skill_version']}" + (f" (`{r['variant']}`)" if name != r['variant'] else '')
+    link = (meta or {}).get('skills', {}).get(r['variant'], {}).get('skill_md')
+    label = f"[{name}]({link})" if link else name
+    return f"{label} {r['skill_version']}" + (f" (`{r['variant']}`)" if name != r['variant'] else '')
 
 
 # ---------------------------------------------------------------- markdown
@@ -271,7 +273,8 @@ def readme_table(boards, models, summaries):
     lines = [README_START, '', '| Task | Benchmark | Best skill | Score |', '| --- | --- | --- | --- |']
     for b, s in zip(boards, summaries):
         c, bi = s['champion'], s['benchmarks'][s['data_version']]
-        champ = f"{display(b['meta'], c['variant'])} {c['skill_version']}" if c else '–'
+        champ = (f"[{display(b['meta'], c['variant'])}]({b['meta']['promoted']['skill']}) {c['skill_version']}" if b['meta'].get('promoted', {}).get('skill')
+                 else f"{display(b['meta'], c['variant'])} {c['skill_version']}") if c else '–'
         score = f"{headline(c):.3f} ({models[c['model']]['name']})" if c else '–'
         lines.append(f"| [{b['task']['title']}, {lang_name(b['lang'])}](./tasks/{b['task']['id']}/results/{b['lang']}/LEADERBOARD.md) | "
                      f"[{bi['name']}]({bi['url']}) | {champ} | {score} |")
@@ -331,7 +334,8 @@ def rank_views(board, models, summary):
     for label, items in views:
         items.sort(key=lambda x: -x[2])
         out.append((label, [dict(variant=v, version=next(iter(d.values()))['skill_version'],
-                                 status=meta['skills'].get(v, {}).get('status', ''), name=display(meta, v), score=sc) for v, d, sc in items]))
+                                 status=meta['skills'].get(v, {}).get('status', ''), name=display(meta, v), score=sc,
+                                 link=meta['skills'].get(v, {}).get('skill_md') or meta['skills'].get(v, {}).get('source')) for v, d, sc in items]))
     return out
 
 
@@ -347,7 +351,7 @@ def rank_list(items, hidden):
         badge = f'<span class="badge {e(st)}">{"best skill" if st == "promoted" else e(st)}</span>' if st else ''
         lis.append(f'''<li class="{'ref' if st == 'reference' else f'r{n}' if n <= 3 else ''}">
 <span class="pos">{'–' if st == 'reference' else n}</span>
-<span class="who"><span class="name">{e(i["name"])}</span>{badge}<span class="bar"><i style="width:{w:.0f}%"></i></span></span>
+<span class="who">{f'<a class="name" href="{e(i["link"])}" title="Open the skill as tested">{e(i["name"])}</a>' if i.get("link") else f'<span class="name">{e(i["name"])}</span>'}{badge}<span class="bar"><i style="width:{w:.0f}%"></i></span></span>
 <span class="val">{i["score"]:.3f}</span>
 </li>''')
     return f'<ol class="rank"{" hidden" if hidden else ""}>{"".join(lis)}</ol>'
