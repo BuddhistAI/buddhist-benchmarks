@@ -67,7 +67,9 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
     const st = skill(v).status;
     return st ? `<span class="badge ${esc(st)}">${st === 'promoted' ? 'best skill' : esc(st)}</span>` : '';
   };
-  const cost = (c) => (c == null ? '<span class="muted">not recorded</span>' : '$' + c.toFixed(2));
+  const money = (x) => '$' + (x >= 0.1 ? x.toFixed(2) : x.toFixed(3));
+  const pages = (r) => (r && r.cost && r.cost.per_100_pages != null ? (r.cost.estimated ? '≈' : '') + money(r.cost.per_100_pages) : '–');
+  const cost = (r) => (r && r.cost ? `${pages(r)}<div class="sub">${r.cost.estimated ? '≈' : ''}${money(r.cost.per_pass)} per run, ${Math.round(r.cost.tokens_per_item).toLocaleString('en')} tokens/item</div>` : '–');
   const pm = (m) => (m && m.runs && m.runs.length > 1 ? `± ${m.std.toFixed(3)}` : '');
   const fmt = (m) => (m ? m.mean.toFixed(3) + (pm(m) ? `<div class="sub">${pm(m)}</div>` : '') : '–');
 
@@ -111,7 +113,7 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
     const mean = state.view === 'mean';
     let h = '<thead><tr><th class="num">Rank</th><th>Skill</th><th>' + esc(metricName(HL)) + `<div class="sub">${esc(splitName(state.split))}${mean ? ', mean of models' : ''}</div></th>` + (BASE ? '<th class="num">Gain<div class="sub">vs. no skill</div></th>' : '');
     h += mean ? models.map((m) => `<th class="num">${esc(shortModel(m))}</th>`).join('')
-      : '<th class="num">Std. dev.</th>' + Object.keys(rows[0].scores.all).filter((k) => k !== HL).map((k) => `<th class="num">${esc(metricName(k))}<div class="sub">All</div></th>`).join('') + '<th class="num">Repeats</th><th>Run</th>';
+      : '<th class="num">Cost<div class="sub">per 100 pages</div></th><th class="num">Std. dev.</th>' + Object.keys(rows[0].scores.all).filter((k) => k !== HL).map((k) => `<th class="num">${esc(metricName(k))}<div class="sub">All</div></th>`).join('') + '<th class="num">Repeats</th><th>Run</th>';
     h += '<th>Made by</th></tr></thead><tbody>';
     let rank = 0;
     list.forEach(({ v, s }) => {
@@ -124,8 +126,8 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
 <td class="num"><span class="pos" title="${ref ? 'Reference run: not ranked, it can\'t ship as this task\'s skill' : ''}">${ref ? '–' : rank}</span></td>
 <td><a class="skill" href="${esc(skill(v).skill_md || '#skill-' + v)}" title="Open the skill as tested">${esc(nameOf(v))}</a> <span class="muted">${esc(any.skill_version)}</span>${badge(v)} <a class="open" href="#skill-${esc(v)}" title="About this skill">ⓘ</a></td>
 <td class="scorecell"><span class="big">${s.toFixed(3)}</span><span class="bar"><i style="width:${width(s).toFixed(0)}%"></i></span></td>` + (BASE ? `<td class="num">${gain(v, s)}</td>` : '');
-      h += mean ? models.map((m) => `<td class="num">${sc(get(v, m)) ? sc(get(v, m)).mean.toFixed(3) : '–'}</td>`).join('')
-        : `<td class="num muted nowrap">${pm(sc(r)) || '–'}</td>` + Object.keys(r.scores.all).filter((k) => k !== HL).map((k) => `<td class="num">${r.scores[state.split] && r.scores[state.split][k] ? r.scores[state.split][k].mean.toFixed(3) : '–'}</td>`).join('') +
+      h += mean ? models.map((m) => `<td class="num">${sc(get(v, m)) ? sc(get(v, m)).mean.toFixed(3) + `<div class="sub" title="cost per 100 pages">${pages(get(v, m))}</div>` : '–'}</td>`).join('')
+        : `<td class="num nowrap">${pages(r)}</td><td class="num muted nowrap">${pm(sc(r)) || '–'}</td>` + Object.keys(r.scores.all).filter((k) => k !== HL).map((k) => `<td class="num">${r.scores[state.split] && r.scores[state.split][k] ? r.scores[state.split][k].mean.toFixed(3) : '–'}</td>`).join('') +
           `<td class="num">${esc(r.repeats)}</td><td><a href="${esc(r.run_url)}">run</a></td>`;
       h += `<td class="sub">${esc(skill(v).made_by || any.by || '')}</td></tr>`;
     });
@@ -133,7 +135,7 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
     $('ranked').innerHTML = h + '</tbody>';
     $('ranked-caption').textContent = `${list.filter((x) => x.v !== BASE).length} skills on ${D.benchmarks[state.version].name}. Higher is better. ` +
       (mean ? `Each model's score is the mean over its runs; the ranking uses the mean of ${models.map(shortModel).join(' and ')}.` : `Mean over ${shortModel(state.view)}'s repeats.`) +
-      ' Gain is the score minus the no-skill baseline (the "before" row) on the same models and passages. Reference runs are shown for comparison but not ranked.';
+      ' Gain is the score minus the no-skill baseline (the "before" row) on the same models and passages. Reference runs are shown for comparison but not ranked. ' + (D.price_note || '');
 
     // Every metric and run, per model
     let out = '';
@@ -143,12 +145,12 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
       out += `<h3>${esc(D.models[m].name)} <span class="code">${esc(m)}</span></h3><div class="table-scroll"><table class="board"><thead><tr><th>Skill</th>` +
         splits.map((s) => `<th class="num">${esc(metricName(HL))}<div class="sub">${esc(splitName(s))}</div></th>`).join('') +
         metrics.filter((k) => k !== HL).map((k) => `<th class="num">${esc(metricName(k))}<div class="sub">All</div></th>`).join('') +
-        '<th>Cost</th><th>Date</th><th>Skill ref</th><th>Run</th></tr></thead><tbody>';
+        '<th>Cost<div class="sub">per 100 pages</div></th><th>Date</th><th>Skill ref</th><th>Run</th></tr></thead><tbody>';
       mrows.forEach((r) => {
         out += `<tr><td><strong>${esc(nameOf(r.variant))}</strong> <span class="muted">${esc(r.skill_version)}</span>${idNote(r.variant)}</td>` +
           splits.map((s) => `<td class="num">${fmt(r.scores[s] && r.scores[s][HL])}</td>`).join('') +
           metrics.filter((k) => k !== HL).map((k) => `<td class="num">${fmt(r.scores.all[k])}</td>`).join('') +
-          `<td>${cost(r.cost_usd)}</td><td class="nowrap">${esc(r.date)}</td><td><code class="small">${esc(r.skill_ref)}</code></td><td><a href="${esc(r.run_url)}">run</a></td></tr>`;
+          `<td class="nowrap">${cost(r)}</td><td class="nowrap">${esc(r.date)}</td><td><code class="small">${esc(r.skill_ref)}</code></td><td><a href="${esc(r.run_url)}">run</a></td></tr>`;
       });
       out += '</tbody></table></div>';
     });

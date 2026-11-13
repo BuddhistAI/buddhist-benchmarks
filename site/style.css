@@ -195,3 +195,20 @@ ol.rank li.base, table.arena tr.base td { background: var(--surface-2); }
 ol.rank li.base { border-radius: 8px; border-bottom: 0; margin-top: 4px; }
 ol.rank li.base .name, table.arena tr.base .skill { color: var(--muted); font-style: italic; }
 ol.rank li.base .bar > i, table.arena tr.base .bar > i { background: repeating-linear-gradient(90deg, var(--muted) 0 4px, transparent 4px 7px); }
+/* Best overall / best value picks */
+.picks { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; margin: 16px 0 20px; }
+.picks.compact { gap: 8px; margin: 4px 0 12px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+.pick { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 14px; min-width: 0; }
+.picks.compact .pick { background: var(--surface-2); border: 0; padding: 8px 10px; }
+.pick.overall { border-left: 4px solid var(--accent); }
+.pick.value { border-left: 4px solid var(--good); }
+.picks.compact .pick.overall { border-left: 3px solid var(--accent); }
+.picks.compact .pick.value { border-left: 3px solid var(--good); }
+.pick .kicker { margin: 0; }
+.pick-name { margin: 2px 0; font-weight: 600; overflow-wrap: anywhere; }
+.picks.compact .pick-name { font-size: 0.9rem; }
+.pick-nums { margin: 0; display: flex; flex-wrap: wrap; gap: 4px 12px; align-items: baseline; }
+.pick-nums > b { font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+.picks.compact .pick-nums > b { font-size: 1.05rem; }
+.pick-nums span { font-size: 0.85rem; color: var(--muted); }
+.pick-nums span b { color: var(--text); }

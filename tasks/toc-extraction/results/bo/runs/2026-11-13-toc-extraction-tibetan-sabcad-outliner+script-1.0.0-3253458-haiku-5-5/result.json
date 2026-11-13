@@ -102,9 +102,15 @@
       }
     }
   },
-  "cost_usd": null,
   "date": "2026-11-13",
   "by": "WeBuddhist",
   "report": "https://github.com/BuddhistAI/toc-extraction-tibetan/blob/main/REPORT.md",
-  "notes": "Measured on data 1.0.0 with scorer 1.0.0. Data 2.0.0 has the same items and answers in the standard format, and scorer 2.0.0 the same metric: re-scoring the stored outputs gives identical numbers."
+  "notes": "Measured on data 1.0.0 with scorer 1.0.0. Data 2.0.0 has the same items and answers in the standard format, and scorer 2.0.0 the same metric: re-scoring the stored outputs gives identical numbers.",
+  "usage": {
+    "input_tokens": 931716,
+    "output_tokens": 99966,
+    "items": 85,
+    "estimated": true,
+    "method": "estimated from characters: exact DSPy prompts, stored outputs, Tibetan 1 token/char, other text 4 chars/token, reasoning 300 + 100 tokens per heading (scripts/estimate_usage.py in toc-extraction-tibetan)"
+  }
 }

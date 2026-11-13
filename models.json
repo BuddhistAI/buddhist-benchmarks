@@ -1,7 +1,11 @@
 {
-  "_comment": "Models that appear on any leaderboard. tier orders models by price, cheapest first; it decides the 'cheapest strong model' on the overview. Add a model here before adding its first result.",
+  "_comment": "Models that appear on any leaderboard, with list prices in USD per million tokens. tier orders models by price, cheapest first. Costs on the leaderboards are tokens (result.json usage) times these prices, so update a price here and every cost follows; keep price_date and price_source with it. Add a model here before adding its first result.",
   "models": {
-    "claude-haiku-5-5": {"name": "Claude Haiku 5.5", "provider": "Anthropic", "tier": 1},
-    "claude-sonnet-5-5": {"name": "Claude Sonnet 5.5", "provider": "Anthropic", "tier": 2}
+    "claude-haiku-5-5": {"name": "Claude Haiku 5.5", "provider": "Anthropic", "tier": 1,
+                         "price": {"input_per_mtok": 0.10, "output_per_mtok": 0.50, "date": "2026-11-03",
+                                   "source": "https://www.anthropic.com/pricing", "note": "prompts up to 100K tokens; no prompt caching or batch discount"}},
+    "claude-sonnet-5-5": {"name": "Claude Sonnet 5.5", "provider": "Anthropic", "tier": 2,
+                          "price": {"input_per_mtok": 2.00, "output_per_mtok": 10.00, "date": "2026-11-03",
+                                    "source": "https://www.anthropic.com/pricing", "note": "no prompt caching or batch discount"}}
   }
 }

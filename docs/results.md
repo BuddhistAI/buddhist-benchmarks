@@ -12,7 +12,7 @@ tasks/<task>/results/<lang>/
     run.json, scores.json     optional: one repeat's scorer output and run details
     outputs/<item-id>.json    optional but encouraged: what the skill produced, so anyone can re-score it
   LEADERBOARD.md              generated
-models.json                   model display names and price tiers
+models.json                   model display names, price tiers and list prices (with date and source)
 ```
 
 `<run-id>` is `<date>-<skill>-<variant>-<skill-version>-<short-commit>-<model-slug>`. One run folder is one skill variant, one model and one data version, averaged over its repeats.
@@ -40,7 +40,8 @@ models.json                   model display names and price tiers
     "same-book":     {...},
     "held-out-book": {...}
   },
-  "cost_usd": null,
+  "usage": {"input_tokens": 907406, "output_tokens": 96282, "items": 85, "estimated": false},
+  "cost_usd": 8.33,
   "date": "2026-11-13",
   "by": "WeBuddhist",
   "report": "https://github.com/BuddhistAI/toc-extraction-tibetan/blob/main/REPORT.md"
@@ -58,9 +59,21 @@ models.json                   model display names and price tiers
 | `repeats` | yes | How many times the whole set was run. |
 | `headline` | yes | The task's headline metric (from TASK.md). |
 | `scores` | yes | Per split, per metric: `mean`, `std` (sample standard deviation over repeats, 0 for one repeat) and `runs`. `all` is required; other splits are the data set's subsets (`metadata.subset` in `test.jsonl`). |
-| `cost_usd` | yes | Total API cost of all repeats, or `null` if not recorded. |
+| `usage` | yes | Tokens for **one pass** over the whole test set (the mean over repeats): `input_tokens`, `output_tokens`, `items`, and `estimated` (`false` when the harness logged the API's own counts, `true` for counts reconstructed afterwards; then add `method`, saying how). Include every call the skill makes, tool calls and retries too. |
+| `cost_usd` | no | Measured API bill for **all repeats**, if the provider reported one. Without it, cost is `usage` × the model's price in `models.json`. |
 | `date`, `by` | yes | Date of the run and who ran it. |
 | `temperature`, `harness`, `report`, `notes` | no | Run settings, a link to a write-up, free text. |
+
+## Cost
+
+Every leaderboard shows what a skill costs to run, so people can weigh score against price. The unit is **US dollars per 100 pages**: one page is 1,500 characters of the benchmark's input text (about a page of a printed Tibetan book), so cost per 100 pages = cost of one pass ÷ the test set's input characters × 150,000. Prices live once, in `models.json` (`price.input_per_mtok`, `price.output_per_mtok`, `price.date`, `price.source`); when a provider changes prices, update them there and every cost follows. List prices are used, without prompt caching or batch discounts.
+
+Two picks are shown on every leaderboard, among shippable skills (not `reference` or `baseline`) on the latest data version:
+
+- **Best overall:** the highest headline score, whatever it costs.
+- **Best value:** the highest headline score among options that cost at most 20% as much as the best overall.
+
+Costs marked ≈ are estimates: the first TOC runs did not log tokens, so toc-extraction-tibetan `scripts/estimate_usage.py` counted them from the exact prompts and the stored outputs. New results must log real token counts (`usage.estimated: false`).
 
 ## skills.json
 
