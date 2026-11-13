@@ -61,6 +61,8 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
   $('f-reference').onchange = (ev) => { state.reference = ev.target.checked; save(); render(); };
 
   const skill = (v) => D.skills[v] || {};
+  const nameOf = (v) => skill(v).name || v;
+  const idNote = (v) => (skill(v).name ? ` <span class="code small">${esc(v)}</span>` : '');
   const badge = (v) => {
     const st = skill(v).status;
     return st ? `<span class="badge ${esc(st)}">${st === 'promoted' ? 'best skill' : esc(st)}</span>` : '';
@@ -114,7 +116,7 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
       const r = mean ? null : get(v, state.view);
       h += `<tr class="${ref ? 'ref' : 'r' + (rank <= 3 ? rank : '')}">
 <td class="num"><span class="pos" title="${ref ? 'Reference run: not ranked, it can\'t ship as this task\'s skill' : ''}">${ref ? '–' : rank}</span></td>
-<td><a class="skill" href="#skill-${esc(v)}">${esc(v)}</a> <span class="muted">${esc(any.skill_version)}</span>${badge(v)}</td>
+<td><a class="skill" href="#skill-${esc(v)}">${esc(nameOf(v))}</a> <span class="muted">${esc(any.skill_version)}</span>${badge(v)}</td>
 <td class="scorecell"><span class="big">${s.toFixed(3)}</span><span class="bar"><i style="width:${width(s).toFixed(0)}%"></i></span></td>`;
       h += mean ? models.map((m) => `<td class="num">${sc(get(v, m)) ? sc(get(v, m)).mean.toFixed(3) : '–'}</td>`).join('')
         : `<td class="num muted nowrap">${pm(sc(r)) || '–'}</td>` + Object.keys(r.scores.all).filter((k) => k !== HL).map((k) => `<td class="num">${r.scores[state.split] && r.scores[state.split][k] ? r.scores[state.split][k].mean.toFixed(3) : '–'}</td>`).join('') +
@@ -137,7 +139,7 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
         metrics.filter((k) => k !== HL).map((k) => `<th class="num">${esc(metricName(k))}<div class="sub">All</div></th>`).join('') +
         '<th>Cost</th><th>Date</th><th>Skill ref</th><th>Run</th></tr></thead><tbody>';
       mrows.forEach((r) => {
-        out += `<tr><td><strong>${esc(r.variant)}</strong> <span class="muted">${esc(r.skill_version)}</span></td>` +
+        out += `<tr><td><strong>${esc(nameOf(r.variant))}</strong> <span class="muted">${esc(r.skill_version)}</span>${idNote(r.variant)}</td>` +
           splits.map((s) => `<td class="num">${fmt(r.scores[s] && r.scores[s][HL])}</td>`).join('') +
           metrics.filter((k) => k !== HL).map((k) => `<td class="num">${fmt(r.scores.all[k])}</td>`).join('') +
           `<td>${cost(r.cost_usd)}</td><td class="nowrap">${esc(r.date)}</td><td><code class="small">${esc(r.skill_ref)}</code></td><td><a href="${esc(r.run_url)}">run</a></td></tr>`;
@@ -149,9 +151,9 @@ document.querySelectorAll('.lb-card .tabs').forEach((tabs) => {
 
   // Skill cards (static)
   const order = { promoted: 0, challenger: 1, baseline: 2, reference: 3 };
-  $('skills').innerHTML = Object.entries(D.skills).sort((a, b) => (order[a[1].status] ?? 9) - (order[b[1].status] ?? 9)).map(([v, s]) => {
+  $('skills').innerHTML = Object.entries(D.skills).filter(([, s]) => !s.hidden).sort((a, b) => (order[a[1].status] ?? 9) - (order[b[1].status] ?? 9)).map(([v, s]) => {
     const versions = [...new Set(D.rows.filter((r) => r.variant === v).map((r) => r.skill_version))].join(', ');
-    return `<div class="card" id="skill-${esc(v)}"><h3>${esc(v)} <span class="muted">${esc(versions)}</span>${badge(v)}</h3>
+    return `<div class="card" id="skill-${esc(v)}"><h3>${esc(nameOf(v))} <span class="muted">${esc(versions)}</span>${badge(v)}</h3>${skill(v).name ? `<p class="sub">Variant <code>${esc(v)}</code></p>` : ''}
 <p>${esc(s.approach || '')}</p>
 <p class="sub">${s.ships ? 'Can ship as this task\'s skill.' : 'Can\'t ship as it is; shown for comparison.'}${s.made_by ? ' Made by ' + esc(s.made_by) + '.' : ''}</p>
 <p class="small">${s.source ? `<a href="${esc(s.source)}">Source at the tested commit</a>` : ''}${D.promoted && D.promoted.variant === v ? ` · <a href="${esc(D.promoted.skill)}">Installed version</a>` : ''}</p></div>`;

@@ -69,6 +69,8 @@ def load_results(errors):
                     continue
                 if r['variant'] not in meta['skills']:
                     errors.append(f'{rel}: variant {r["variant"]!r} is not in {skills_file.relative_to(ROOT).as_posix()}')
+                if meta['skills'].get(r['variant'], {}).get('hidden'):
+                    continue
                 r['_run'] = f.parent.relative_to(res_dir).as_posix()
                 r['_path'] = f.parent.relative_to(ROOT).as_posix()
                 rows.append(r)
@@ -209,8 +211,13 @@ def fmt_cost(c):
     return 'not recorded' if c is None else f'${c:,.2f}'
 
 
-def skill_label(r):
-    return f"{r['variant']} {r['skill_version']}"
+def display(meta, variant):
+    return meta['skills'].get(variant, {}).get('name') or variant
+
+
+def skill_label(r, meta=None):
+    name = display(meta, r['variant']) if meta else r['variant']
+    return f"{name} {r['skill_version']}" + (f" (`{r['variant']}`)" if name != r['variant'] else '')
 
 
 # ---------------------------------------------------------------- markdown
@@ -247,7 +254,7 @@ def leaderboard_md(board, models, summary):
             lines += ['| ' + ' | '.join(head) + ' |', '|' + ' --- |' * len(head)]
             for i, r in enumerate(mrows, 1):
                 st = meta['skills'].get(r['variant'], {}).get('status', '')
-                cells = ([str(i), skill_label(r), st, fmt(r['scores']['all'][hl])] +
+                cells = ([str(i), skill_label(r, meta), st, fmt(r['scores']['all'][hl])] +
                          [fmt(r['scores'].get(s, {}).get(hl)) for s in splits] +
                          [fmt(r['scores']['all'].get(k)) for k in other] +
                          [fmt_cost(r['cost_usd']), r['date'], f"`{r['skill_ref']}`", f"[run](./{r['_run']}/)"])
@@ -264,7 +271,7 @@ def readme_table(boards, models, summaries):
     lines = [README_START, '', '| Task | Benchmark | Best skill | Score |', '| --- | --- | --- | --- |']
     for b, s in zip(boards, summaries):
         c, bi = s['champion'], s['benchmarks'][s['data_version']]
-        champ = f"{c['variant']} {c['skill_version']}" if c else '–'
+        champ = f"{display(b['meta'], c['variant'])} {c['skill_version']}" if c else '–'
         score = f"{headline(c):.3f} ({models[c['model']]['name']})" if c else '–'
         lines.append(f"| [{b['task']['title']}, {lang_name(b['lang'])}](./tasks/{b['task']['id']}/results/{b['lang']}/LEADERBOARD.md) | "
                      f"[{bi['name']}]({bi['url']}) | {champ} | {score} |")
@@ -324,7 +331,7 @@ def rank_views(board, models, summary):
     for label, items in views:
         items.sort(key=lambda x: -x[2])
         out.append((label, [dict(variant=v, version=next(iter(d.values()))['skill_version'],
-                                 status=meta['skills'].get(v, {}).get('status', ''), score=sc) for v, d, sc in items]))
+                                 status=meta['skills'].get(v, {}).get('status', ''), name=display(meta, v), score=sc) for v, d, sc in items]))
     return out
 
 
@@ -340,7 +347,7 @@ def rank_list(items, hidden):
         badge = f'<span class="badge {e(st)}">{"best skill" if st == "promoted" else e(st)}</span>' if st else ''
         lis.append(f'''<li class="{'ref' if st == 'reference' else f'r{n}' if n <= 3 else ''}">
 <span class="pos">{'–' if st == 'reference' else n}</span>
-<span class="who"><span class="name">{e(i["variant"])}</span>{badge}<span class="bar"><i style="width:{w:.0f}%"></i></span></span>
+<span class="who"><span class="name">{e(i["name"])}</span>{badge}<span class="bar"><i style="width:{w:.0f}%"></i></span></span>
 <span class="val">{i["score"]:.3f}</span>
 </li>''')
     return f'<ol class="rank"{" hidden" if hidden else ""}>{"".join(lis)}</ol>'

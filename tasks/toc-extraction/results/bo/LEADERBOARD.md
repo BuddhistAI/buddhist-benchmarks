@@ -6,7 +6,7 @@ Headline metric: `structure_f1` (see [TASK.md](../../TASK.md)). Higher is better
 
 Best skill (installed from buddhist-skills): [`toc-extraction` skill](https://github.com/BuddhistAI/buddhist-skills/tree/main/skills/toc-extraction-tibetan) 1.0.0 (variant sabcad-outliner-toc), promoted 2026-11-13. Full report: [REPORT.md](https://github.com/BuddhistAI/toc-extraction-tibetan/blob/main/REPORT.md).
 
-- sabcad-outliner-toc and gepa-v1 are a near-tie: the gap in the mean of both models is within run-to-run noise, and gepa-v1 does better on the held-out book. Re-run both after the held-out references are fixed (benchmark toc-extraction/bo 1.0.1).
+- sabcad-outliner-toc and TOC extraction (GEPA-optimized) are a near-tie: the gap in the mean of both models is within run-to-run noise, and the GEPA-optimized skill does better on the held-out book. Re-run both after the held-out references are fixed (benchmark toc-extraction/bo 1.0.1).
 - sabcad-outliner and sabcad-outliner+script are a .docx outliner skill run through a benchmark adapter. They can't ship as a TOC skill as they are; sabcad-outliner-toc is the shippable form.
 
 ## Benchmark toc-extraction/bo 1.0.0
@@ -19,9 +19,8 @@ Data set [`tasks/toc-extraction/data/bo/v1/`](https://github.com/BuddhistAI/budd
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | sabcad-outliner 1.0.0 | reference | 0.859 ± 0.017 | 0.881 ± 0.018 | 0.621 ± 0.005 | 0.919 ± 0.015 | 0.935 ± 0.029 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/sabcad-outliner` | [run](./runs/2026-11-13-toc-extraction-tibetan-sabcad-outliner-1.0.0-3253458-haiku-5-5/) |
 | 2 | sabcad-outliner+script 1.0.0 | reference | 0.831 ± 0.012 | 0.860 ± 0.011 | 0.531 ± 0.043 | 0.888 ± 0.011 | 0.936 ± 0.003 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/sabcad-outliner` | [run](./runs/2026-11-13-toc-extraction-tibetan-sabcad-outliner+script-1.0.0-3253458-haiku-5-5/) |
-| 3 | gepa-v1 1.0.0 | challenger | 0.824 ± 0.012 | 0.838 ± 0.015 | 0.668 ± 0.065 | 0.940 ± 0.010 | 0.877 ± 0.010 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/gepa-v1` | [run](./runs/2026-11-13-toc-extraction-tibetan-gepa-v1-1.0.0-3253458-haiku-5-5/) |
+| 3 | TOC extraction (GEPA-optimized) 1.0.0 (`gepa-v1`) | challenger | 0.824 ± 0.012 | 0.838 ± 0.015 | 0.668 ± 0.065 | 0.940 ± 0.010 | 0.877 ± 0.010 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/gepa-v1` | [run](./runs/2026-11-13-toc-extraction-tibetan-gepa-v1-1.0.0-3253458-haiku-5-5/) |
 | 4 | sabcad-outliner-toc 1.0.0 | promoted | 0.823 ± 0.022 | 0.840 ± 0.027 | 0.637 ± 0.089 | 0.893 ± 0.020 | 0.922 ± 0.009 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/sabcad-outliner-toc` | [run](./runs/2026-11-13-toc-extraction-tibetan-sabcad-outliner-toc-1.0.0-3253458-haiku-5-5/) |
-| 5 | seed 0.1.0 | baseline | 0.741 ± 0.022 | 0.745 ± 0.024 | 0.677 ± 0.033 | 0.880 ± 0.007 | 0.842 ± 0.029 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/seed` | [run](./runs/2026-11-13-toc-extraction-tibetan-seed-0.1.0-3253458-haiku-5-5/) |
 
 ### Claude Sonnet 5.5 (`claude-sonnet-5-5`)
 
@@ -29,13 +28,12 @@ Data set [`tasks/toc-extraction/data/bo/v1/`](https://github.com/BuddhistAI/budd
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | 1 | sabcad-outliner+script 1.0.0 | reference | 0.968 ± 0.001 | 0.983 ± 0.002 | 0.785 ± 0.007 | 0.973 ± 0.001 | 0.995 ± 0.000 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/sabcad-outliner` | [run](./runs/2026-11-13-toc-extraction-tibetan-sabcad-outliner+script-1.0.0-3253458-sonnet-5-5/) |
 | 2 | sabcad-outliner-toc 1.0.0 | promoted | 0.962 ± 0.007 | 0.982 ± 0.007 | 0.720 ± 0.018 | 0.967 ± 0.007 | 0.995 ± 0.000 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/sabcad-outliner-toc` | [run](./runs/2026-11-13-toc-extraction-tibetan-sabcad-outliner-toc-1.0.0-3253458-sonnet-5-5/) |
-| 3 | seed 0.1.0 | baseline | 0.951 ± 0.005 | 0.977 ± 0.005 | 0.646 ± 0.018 | 0.958 ± 0.001 | 0.992 ± 0.004 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/seed` | [run](./runs/2026-11-13-toc-extraction-tibetan-seed-0.1.0-3253458-sonnet-5-5/) |
-| 4 | gepa-v1 1.0.0 | challenger | 0.949 ± 0.020 | 0.962 ± 0.022 | 0.794 ± 0.000 | 0.974 ± 0.006 | 0.974 ± 0.015 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/gepa-v1` | [run](./runs/2026-11-13-toc-extraction-tibetan-gepa-v1-1.0.0-3253458-sonnet-5-5/) |
-| 5 | sabcad-outliner 1.0.0 | reference | 0.946 ± 0.014 | 0.977 ± 0.016 | 0.597 ± 0.033 | 0.972 ± 0.002 | 0.973 ± 0.014 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/sabcad-outliner` | [run](./runs/2026-11-13-toc-extraction-tibetan-sabcad-outliner-1.0.0-3253458-sonnet-5-5/) |
+| 3 | TOC extraction (GEPA-optimized) 1.0.0 (`gepa-v1`) | challenger | 0.949 ± 0.020 | 0.962 ± 0.022 | 0.794 ± 0.000 | 0.974 ± 0.006 | 0.974 ± 0.015 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/gepa-v1` | [run](./runs/2026-11-13-toc-extraction-tibetan-gepa-v1-1.0.0-3253458-sonnet-5-5/) |
+| 4 | sabcad-outliner 1.0.0 | reference | 0.946 ± 0.014 | 0.977 ± 0.016 | 0.597 ± 0.033 | 0.972 ± 0.002 | 0.973 ± 0.014 | not recorded | 2026-11-13 | `BuddhistAI/toc-extraction-tibetan@3253458:variants/sabcad-outliner` | [run](./runs/2026-11-13-toc-extraction-tibetan-sabcad-outliner-1.0.0-3253458-sonnet-5-5/) |
 
 Splits:
 
 - **All:** All 85 passages, 394 headings.
-- **Same book:** 76 passages of A Lamp Illuminating the Intent of Vasubandhu. gepa-v1 was tuned on 48 other passages of this book.
+- **Same book:** 76 passages of A Lamp Illuminating the Intent of Vasubandhu. The GEPA-optimized skill was tuned on 48 other passages of this book.
 - **Held-out book:** 9 passages of The Jewel Garland, a book no skill was tuned on. Its references are known to miss real headings, so precision is understated for every skill.
 
