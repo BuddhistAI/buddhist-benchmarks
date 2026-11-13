@@ -23,7 +23,7 @@
 
   // Controls
   $('f-version').innerHTML = D.versions.map((v) => `<option value="${esc(v)}">${esc(v)}</option>`).join('');
-  const splits = Object.keys(D.rows[0].scores);
+  const splits = Object.keys(D.rows[0].scores).sort((a, b) => (a === 'all' ? -1 : b === 'all' ? 1 : 0));
   if (!splits.includes(state.split)) state.split = 'all';
   $('f-split').innerHTML = splits.map((s) => `<option value="${esc(s)}"${s === state.split ? ' selected' : ''}>${esc(splitName(s))}</option>`).join('');
   $('f-models').insertAdjacentHTML('beforeend', Object.keys(D.models).sort(byTier).map((m) =>
