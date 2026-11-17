@@ -1,5 +1,7 @@
 # Buddhist Benchmarks
 
+> BuddhistAI helps anyone working on a Buddhist project find the best-performing and best-value AI solution for their task, and helps anyone building AI solutions share theirs and take part in the evaluations. This repo is where they are measured: [see the leaderboard](https://buddhistai.github.io/buddhist-benchmarks/) or [submit yours](./SUBMIT.md).
+
 Shared tasks, test data, scorers, and leaderboards that rank **AI models and skills** on Buddhist tasks. Every task board compares skills across models, next to each model on its own with no skill. Question-and-answer benchmarks, such as [BuddhistBench](https://github.com/BuddhistAI/buddhist-bench), and other open leaderboards are listed alongside. The winning skill for each task and language ships in [BuddhistAI/buddhist-skills](https://github.com/BuddhistAI/buddhist-skills).
 
 - **What is measured, and what is missing:** [STATE.md](./STATE.md)
