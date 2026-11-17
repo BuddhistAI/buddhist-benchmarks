@@ -9,3 +9,6 @@ contact_links:
   - name: Benchmarks board
     url: https://github.com/orgs/BuddhistAI/projects/2
     about: See every benchmark from proposal to live.
+  - name: Ask a question or discuss a benchmark
+    url: https://github.com/orgs/BuddhistAI/discussions/categories/benchmarks-and-test-data
+    about: Talk about test questions, answer keys and scoring in BuddhistAI Discussions.
