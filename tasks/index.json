@@ -1,5 +1,5 @@
 {
-  "_comment": "Every task ID. Each task is defined on the BuddhistAI wiki (https://buddhistai.github.io/wiki/tasks/<id>.html). Skills in BuddhistAI/buddhist-skills are named <task-id>-<language>. Status: active (has TASK.md, scorer, and at least one data set) or planned.",
+  "_comment": "Every task ID. Each task is defined on the BuddhistAI knowledge base (https://buddhistai.github.io/knowledge-base/tasks/<id>.html). Skills in BuddhistAI/buddhist-skills are named <task-id>-<language>. Status: active (has TASK.md, scorer, and at least one data set) or planned.",
   "tasks": [
     {"id": "toc-extraction", "status": "active", "title": "Table-of-contents extraction", "summary": "List the titles, levels, and locations of a text's sections."},
     {"id": "text-cleanup", "status": "planned", "title": "Text cleanup", "summary": "Fix OCR and input errors and normalize a text without changing its content."},
