@@ -6,6 +6,7 @@ What AI can do today on Buddhist tasks, measured on open benchmarks, and where n
 ## At a glance
 
 - **Text tasks:** 10 defined, 1 with a benchmark, 1 task and language pair with results.
+- **Buddhist knowledge (BuddhistBench 0.4.0):** 15 tracks planned or open, 1 with real questions, 0 with model results.
 - **Other open leaderboards we follow:** 1.
 
 ## Text tasks by language
@@ -29,6 +30,28 @@ Details:
 
 - **Table-of-contents extraction, Tibetan:** 0.962 structure_f1 by TOC extraction (sa-bcad method) on Claude Sonnet 5.5; best value 0.824 on Claude Haiku 5.5 (benchmark toc-extraction/bo 2.0.0, last tested 2026-11-13).
 
+## Buddhist knowledge (BuddhistBench)
+
+How well AI models know the Buddhist traditions, asked per tradition and per language.
+
+| Track | Kind | Questions | Languages | Model results |
+| --- | --- | ---: | --- | ---: |
+| [Core](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/core) | tradition | examples only | – | – |
+| [Theravāda](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/theravada) | tradition | examples only | – | – |
+| [Tibetan](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/tibetan) | tradition | examples only | – | – |
+| [The Thirty-Seven Practices of Bodhisattvas](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/37-practices) | text | examples only | – | – |
+| [Exam track (format example)](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/exam-example) | exam | examples only | – | – |
+| [Thai Nak Tham and Dhamma Studies exams](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/nak-tham) | exam | 4,075 | Thai | – |
+| [Chan / Zen / Seon / Thiền](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/chan-zen) | tradition | – | – | – |
+| [Pure Land](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/pure-land) | tradition | – | – | – |
+| [Tiantai / Tendai](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/tiantai-tendai) | tradition | – | – | – |
+| [Huayan / Kegon](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/huayan-kegon) | tradition | – | – | – |
+| [Shingon and East Asian esoteric](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/shingon) | tradition | – | – | – |
+| [Nichiren](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/nichiren) | tradition | – | – | – |
+| [Indian Mahāyāna philosophy](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/indian-mahayana) | tradition | – | – | – |
+| [Early Buddhism](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/early) | tradition | – | – | – |
+| [Newar](https://github.com/BuddhistAI/buddhist-bench/tree/main/tracks/newar) | tradition | – | – | – |
+
 ## Other open leaderboards
 
 - [Tibetan OCR](https://huggingface.co/spaces/BDRC/tibetan-ocr-leaderboard) (BDRC): OCR engines and models ranked on BDRC's open Tibetan OCR benchmark of woodblock prints and manuscripts.
@@ -39,6 +62,9 @@ Details:
 - **Sanskrit:** no text task is measured yet.
 - **Pali:** no text task is measured yet.
 - **Classical Chinese:** no text task is measured yet.
+- **BuddhistBench tracks with no real questions yet:** Core, Theravāda, Tibetan, The Thirty-Seven Practices of Bodhisattvas.
+- **Traditions whose BuddhistBench track is only planned:** Chan / Zen / Seon / Thiền, Pure Land, Tiantai / Tendai, Huayan / Kegon, Shingon and East Asian esoteric, Nichiren, Indian Mahāyāna philosophy, Early Buddhism, Newar.
+- **BuddhistBench tracks with questions but no model results yet:** Thai Nak Tham and Dhamma Studies exams.
 
 ## Close a gap
 
