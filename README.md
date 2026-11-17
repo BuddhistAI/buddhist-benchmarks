@@ -4,6 +4,7 @@
 
 Shared tasks, test data, scorers, and leaderboards that rank **AI models and skills** on Buddhist tasks. Every task board compares skills across models, next to each model on its own with no skill. Question-and-answer benchmarks, such as [BuddhistBench](https://github.com/BuddhistAI/buddhist-bench), and other open leaderboards are listed alongside. The winning skill for each task and language ships in [BuddhistAI/buddhist-skills](https://github.com/BuddhistAI/buddhist-skills).
 
+- **What each task is (definitions, examples, edge cases):** the [BuddhistAI wiki](https://buddhistai.github.io/wiki/)
 - **What is measured, and what is missing:** [STATE.md](./STATE.md)
 - **Score your own tool or model:** [SUBMIT.md](./SUBMIT.md)
 
@@ -28,7 +29,7 @@ Language codes are ISO 639 / BCP 47 (`bo`, `sa`, `pi`, `lzh`, ...), as listed in
 | Task | Status | Languages with data |
 | --- | --- | --- |
 | [toc-extraction](./tasks/toc-extraction/TASK.md) | active | `bo` (v1, 1.0.0) |
-| text-cleanup, segmentation, entity-extraction, citation-mapping, text-translation-alignment, text-commentary-alignment, term-extraction, translation, translation-review | planned | |
+| text-cleanup, segmentation, entity-extraction, citation-mapping, text-translation-alignment, text-commentary-alignment, term-extraction, translation, translation-review, ocr, spell-check, edition-collation, block-id-assignment, annotation-detection | planned | |
 
 The full list is [`tasks/index.json`](./tasks/index.json).
 

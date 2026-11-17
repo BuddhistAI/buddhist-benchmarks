@@ -5,7 +5,7 @@ What AI can do today on Buddhist tasks, measured on open benchmarks, and where n
 
 ## At a glance
 
-- **Text tasks:** 10 defined, 1 with a benchmark, 1 task and language pair with results.
+- **Text tasks:** 15 defined, 1 with a benchmark, 1 task and language pair with results.
 - **Buddhist knowledge (BuddhistBench 0.4.0):** 15 tracks planned or open, 1 with real questions, 0 with model results.
 - **Other open leaderboards we follow:** 1.
 
@@ -25,6 +25,11 @@ Best score on each task's headline metric (0 to 1, higher is better); the skill 
 | Term extraction | – | – | – | – |
 | Translation | – | – | – | – |
 | Translation review | – | – | – | – |
+| OCR | – | – | – | – |
+| Spell check | – | – | – | – |
+| Edition collation | – | – | – | – |
+| Block ID assignment | – | – | – | – |
+| Annotation detection | – | – | – | – |
 
 Details:
 
@@ -58,7 +63,7 @@ How well AI models know the Buddhist traditions, asked per tradition and per lan
 
 ## Gaps
 
-- **Text tasks with no benchmark yet (9):** text cleanup, segmentation, entity extraction, citation mapping, text-translation alignment, text-commentary alignment, term extraction, translation, translation review.
+- **Text tasks with no benchmark yet (14):** text cleanup, segmentation, entity extraction, citation mapping, text-translation alignment, text-commentary alignment, term extraction, translation, translation review, ocr, spell check, edition collation, block id assignment, annotation detection.
 - **Sanskrit:** no text task is measured yet.
 - **Pali:** no text task is measured yet.
 - **Classical Chinese:** no text task is measured yet.

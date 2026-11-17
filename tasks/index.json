@@ -1,5 +1,5 @@
 {
-  "_comment": "Every task ID. Skills in BuddhistAI/buddhist-skills are named <task-id>-<language>. Status: active (has TASK.md, scorer, and at least one data set) or planned.",
+  "_comment": "Every task ID. Each task is defined on the BuddhistAI wiki (https://buddhistai.github.io/wiki/tasks/<id>.html). Skills in BuddhistAI/buddhist-skills are named <task-id>-<language>. Status: active (has TASK.md, scorer, and at least one data set) or planned.",
   "tasks": [
     {"id": "toc-extraction", "status": "active", "title": "Table-of-contents extraction", "summary": "List the titles, levels, and locations of a text's sections."},
     {"id": "text-cleanup", "status": "planned", "title": "Text cleanup", "summary": "Fix OCR and input errors and normalize a text without changing its content."},
@@ -10,6 +10,11 @@
     {"id": "text-commentary-alignment", "status": "planned", "title": "Text-commentary alignment", "summary": "Link each root text passage to the commentary passages that explain it."},
     {"id": "term-extraction", "status": "planned", "title": "Term extraction", "summary": "Propose glossary terms and their renderings from a source text and translation."},
     {"id": "translation", "status": "planned", "title": "Translation", "summary": "Produce a draft translation."},
-    {"id": "translation-review", "status": "planned", "title": "Translation review", "summary": "Check a translation against its source, the glossary, and the style guide."}
+    {"id": "translation-review", "status": "planned", "title": "Translation review", "summary": "Check a translation against its source, the glossary, and the style guide."},
+    {"id": "ocr", "status": "planned", "title": "OCR", "summary": "Turn an image of a page into Unicode text. Tibetan is ranked on BDRC's external leaderboard."},
+    {"id": "spell-check", "status": "planned", "title": "Spell check", "summary": "Flag and correct misspelled words in a source text or a translation."},
+    {"id": "edition-collation", "status": "planned", "title": "Edition collation", "summary": "Compare editions of a text and record where and how they differ."},
+    {"id": "block-id-assignment", "status": "planned", "title": "Block ID assignment", "summary": "Give every block of a text (paragraph, verse, section) a stable ID."},
+    {"id": "annotation-detection", "status": "planned", "title": "Annotation detection", "summary": "Find interlinear notes, glosses and other annotations and separate them from the main text."}
   ]
 }
