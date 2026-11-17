@@ -513,8 +513,8 @@ def site_index(index, boards, models, summaries, bench, external=()):
     cards += [external_card(x) for x in external]
     n_bench = len(bench['rows']) if bench else 0
     cards.append(f'''<article class="lb-card soon">
-<header><p class="kicker">Models · all traditions</p><h2><a href="buddhistbench/index.html">BuddhistBench</a></h2>
-<p class="sub">Tests models, not skills, on Buddhist knowledge across traditions.</p></header>
+<header><p class="kicker">Q&amp;A benchmark · all traditions</p><h2><a href="buddhistbench/index.html">BuddhistBench</a></h2>
+<p class="sub">Questions and answers on Buddhist knowledge across traditions.</p></header>
 <div class="soon-body">{f"<strong>{n_bench}</strong> runs" if n_bench else "Coming soon"}</div>
 <footer><span class="sub">buddhist-bench</span><a class="more" href="buddhistbench/index.html">Open →</a></footer>
 </article>''')
@@ -524,7 +524,7 @@ def site_index(index, boards, models, summaries, bench, external=()):
     body = f'''
 <section class="hero">
 <h1>Leaderboards</h1>
-<p class="lede">AI models and skills for Buddhist tasks, ranked on open benchmarks. Each task board compares skills across models, with every model also tested on its own (&ldquo;No skill&rdquo;); BuddhistBench ranks models on Buddhist knowledge. The top shippable skill for each task and language is the one people install from <a href="https://github.com/BuddhistAI/buddhist-skills">buddhist-skills</a>.</p>
+<p class="lede">AI models and skills for Buddhist tasks, ranked on open benchmarks. Each task board compares skills across models, with every model also tested on its own (&ldquo;No skill&rdquo;). Question-and-answer benchmarks and other open leaderboards are listed alongside. The top shippable skill for each task and language is the one people install from <a href="https://github.com/BuddhistAI/buddhist-skills">buddhist-skills</a>.</p>
 <ul class="stats">
 <li><b>{len(boards)}</b> leaderboard{"s" if len(boards) != 1 else ""}</li>
 <li><b>{n_skills}</b> skills</li>

@@ -1,6 +1,6 @@
 # Buddhist Benchmarks
 
-Shared tasks, test data, scorers, and leaderboards that rank **AI models and skills** on Buddhist tasks. Every task board compares skills across models, next to each model on its own with no skill; [BuddhistBench](https://github.com/BuddhistAI/buddhist-bench) ranks models on Buddhist knowledge. The winning skill for each task and language ships in [BuddhistAI/buddhist-skills](https://github.com/BuddhistAI/buddhist-skills).
+Shared tasks, test data, scorers, and leaderboards that rank **AI models and skills** on Buddhist tasks. Every task board compares skills across models, next to each model on its own with no skill. Question-and-answer benchmarks, such as [BuddhistBench](https://github.com/BuddhistAI/buddhist-bench), and other open leaderboards are listed alongside. The winning skill for each task and language ships in [BuddhistAI/buddhist-skills](https://github.com/BuddhistAI/buddhist-skills).
 
 - **What is measured, and what is missing:** [STATE.md](./STATE.md)
 - **Score your own tool or model:** [SUBMIT.md](./SUBMIT.md)
