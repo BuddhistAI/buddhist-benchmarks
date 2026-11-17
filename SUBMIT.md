@@ -32,6 +32,8 @@ Open a pull request that adds `tasks/<task>/results/<code>/runs/<run>/` with:
 - your outputs and `scores.json`, so anyone can re-score them;
 - a line for your solution in that language's `skills.json`, with a short description of the approach and who made it.
 
+Also keep a **provenance record** of the run in your own repo: the exact skill files, model and settings, prompt, data version, code and libraries, command, logs, tokens and cost. Format and an example: [Provenance records](https://buddhistai.github.io/knowledge-base/handbook/provenance.html). It stays in your repo; this repo keeps only `result.json`, the outputs and `scores.json`. For a closed tool, put the same facts in the pull request description.
+
 Run `python3 scripts/check.py`. Once merged, the leaderboards and [STATE.md](STATE.md) rebuild themselves. If your solution is the best shippable one, it can be promoted to [buddhist-skills](https://github.com/BuddhistAI/buddhist-skills) so people can install it.
 
 Closed or commercial tools are welcome too: include the outputs and say in `skills.json` how others can get the tool.

@@ -1,0 +1,54 @@
+name: Donate compute or API credits
+description: Help pay for evaluations. Your credits run benchmarks for everyone's models and skills.
+title: "Compute: "
+labels: [compute]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every score on the leaderboard costs money to make: each model and skill is run on each benchmark, at least three times. Today evaluations are free for whoever submits, because supporters pay for them.
+
+        How we use donations:
+        - Credits pay for evaluations of **everyone's** submissions, in the order they arrive, not only the donor's.
+        - A donation **never** changes a score, a ranking or the order of any list.
+        - We report in [News](https://buddhistai.github.io/knowledge-base/news/) what the credits paid for.
+        - If you wish, your organization is listed under "Supported by" on the homepage and the GitHub org page (alphabetical order).
+
+        **Never paste an API key or password in this form or in any issue.** The project lead will contact you to agree on a safe way to share it.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: What can you offer?
+      multiple: true
+      options:
+        - API credits (OpenRouter, Anthropic, OpenAI, Google or another provider)
+        - Free or discounted access to our own model or service
+        - GPU time (for open-weight models)
+        - Money for evaluations
+        - Something else (describe below)
+    validations: {required: true}
+  - type: textarea
+    id: details
+    attributes:
+      label: Details
+      description: Provider or models, amount or hours, any time limit, and any conditions.
+    validations: {required: true}
+  - type: input
+    id: who
+    attributes:
+      label: Your organization (or your name)
+    validations: {required: true}
+  - type: dropdown
+    id: credit
+    attributes:
+      label: May we list you as a supporter?
+      options:
+        - Yes, list us under "Supported by"
+        - Yes, but only mention us in the news post
+        - No, please keep this anonymous
+    validations: {required: true}
+  - type: input
+    id: contact
+    attributes:
+      label: How can the project lead reach you? (optional)
+      description: A public way to reach you, such as a website contact page. Do not post a private email address here; we can also reply on this issue.

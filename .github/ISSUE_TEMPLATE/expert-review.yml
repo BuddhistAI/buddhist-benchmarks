@@ -1,0 +1,56 @@
+name: Review a benchmark as an expert
+description: Check the questions and correct answers of a benchmark in a field you know well. No technical knowledge needed.
+title: "Expert review: "
+labels: [expert-review]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A benchmark is only as good as its correct answers. An expert review checks that the items are sound and that the answers are right, for example by a translator, a teacher, a scholar or a monastic who knows the material.
+
+        Your review is credited by name in the benchmark's dataset card. A full review by a second reader from the tradition moves a benchmark up to maturity level 3, **Reviewed**. You do not need to use GitHub beyond this form: a maintainer will send you the items in a form that is easy to read.
+  - type: dropdown
+    id: benchmark
+    attributes:
+      label: Which benchmark?
+      options:
+        - Tibetan table-of-contents extraction (toc-extraction/bo)
+        - BuddhistBench (Buddhist knowledge questions, by tradition)
+        - Thai Nak Tham exams (imported into BuddhistBench)
+        - Another one (say which below)
+        - Any benchmark that needs my languages or field
+    validations: {required: true}
+  - type: textarea
+    id: expertise
+    attributes:
+      label: Your field and languages
+      description: For example "Tibetan, 10 years translating Madhyamaka commentaries" or "Pali and Thai, Nak Tham teacher".
+    validations: {required: true}
+  - type: dropdown
+    id: scope
+    attributes:
+      label: How much can you review?
+      options:
+        - A small sample (about 10 to 20 items)
+        - About 50 items
+        - The whole benchmark
+        - I already found problems (describe them below)
+    validations: {required: true}
+  - type: textarea
+    id: findings
+    attributes:
+      label: Problems you already found (optional)
+      description: "Item ids and what is wrong. For example: IBA-LWS-08-045, heading 3 is level 2, not level 3."
+  - type: input
+    id: credit
+    attributes:
+      label: How should we credit you?
+      description: Your name as it should appear, and your organization if you wish.
+    validations: {required: true}
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Agreement
+      options:
+        - label: I agree that my corrections are published openly with the benchmark (under its license) and credited to me.
+          required: true

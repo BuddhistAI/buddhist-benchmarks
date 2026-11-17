@@ -1,5 +1,13 @@
 # Contributing
 
+You do not need to write code to help. Besides adding data and results (below), you can:
+
+- **Review a benchmark as an expert.** Check the items and correct answers in a field you know. [Review a benchmark](https://github.com/BuddhistAI/buddhist-benchmarks/issues/new?template=expert-review.yml). You are credited by name in the dataset card, and a full review moves the benchmark up to maturity level 3, Reviewed.
+- **Donate compute or API credits.** Evaluations cost money; supporters pay for them, so testing is free for everyone. [Donate compute or API credits](https://github.com/BuddhistAI/buddhist-benchmarks/issues/new?template=donate-compute.yml). A donation never changes a score or a ranking.
+- **Propose a benchmark** from material your team already uses: [Propose a benchmark](https://github.com/BuddhistAI/buddhist-benchmarks/issues/new?template=propose-benchmark.yml).
+
+New to this? The [tutorials](https://buddhistai.github.io/knowledge-base/learn/) teach the steps. Who decides what: [Governance](https://buddhistai.github.io/knowledge-base/governance.html).
+
 ## Add test data for your language
 
 1. Create `tasks/<task>/data/<code>/v1/` with `test.jsonl` (one item per line: `id`, `input`, `target`, `metadata`; see the task's `TASK.md`) and a `README.md` dataset card: Hugging Face YAML front matter (license, language, `configs` pointing at `test.jsonl`), then version, purpose, number of items, source and license of the texts, who made the answers, any shared resource versions (with commit), and a worked example. [toc-extraction/bo/v2](./tasks/toc-extraction/data/bo/v2/README.md) is the template.
@@ -12,7 +20,7 @@ Prefer texts that represent real work: real OCR, real editions, real page layout
 
 ## Submit a run
 
-Add a run folder with a `result.json` ([docs/results.md](./docs/results.md)), run `python3 scripts/build_leaderboards.py`, and open a PR. Include your outputs, so anyone can re-score them. Never edit `LEADERBOARD.md` or the README table by hand: they are generated, and CI rebuilds the site on every push to `main`.
+Add a run folder with a `result.json` ([docs/results.md](./docs/results.md)) and keep a [provenance record](https://buddhistai.github.io/knowledge-base/handbook/provenance.html) of the run in your own repo (not here), run `python3 scripts/build_leaderboards.py`, and open a PR. Include your outputs, so anyone can re-score them. Never edit `LEADERBOARD.md` or the README table by hand: they are generated, and CI rebuilds the site on every push to `main`.
 
 ## Propose a new task
 
