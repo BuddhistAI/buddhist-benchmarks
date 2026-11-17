@@ -1,0 +1,53 @@
+name: Propose a benchmark
+description: Suggest a test for a Buddhist task, so AI models and skills can be measured on it. No technical knowledge needed.
+title: "Benchmark: "
+labels: [benchmark]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        A benchmark is a small set of test material with correct answers, and a way to score results. It lets us compare AI models and skills on one task in one language.
+
+        Every proposal goes on the [Benchmarks board](https://github.com/orgs/BuddhistAI/projects/2), so everyone can follow it from "Proposed" to "Live". You do not need to write any code.
+
+        Only want AI for a task, not a test? Use the [Request an AI solution form](https://github.com/BuddhistAI/buddhist-skills/issues/new?template=request.yml) instead.
+  - type: textarea
+    id: task
+    attributes:
+      label: Which task should be measured?
+      description: Describe the task in your own words.
+      placeholder: Find the table of contents (sa bcad) in a Tibetan commentary.
+    validations: {required: true}
+  - type: input
+    id: language
+    attributes:
+      label: Language(s)
+      description: The language of the material, and of the result if it is different.
+      placeholder: Tibetan → English
+    validations: {required: true}
+  - type: textarea
+    id: data
+    attributes:
+      label: Test material
+      description: What material could we test on? Who owns it, and may it be shared openly? Material that people already use in real work is best (for example exam papers or texts being translated).
+    validations: {required: true}
+  - type: textarea
+    id: answers
+    attributes:
+      label: Correct answers
+      description: Who can write or check the correct answers? A good benchmark has answers checked by at least one person who knows the material well.
+  - type: textarea
+    id: scoring
+    attributes:
+      label: How should results be scored?
+      description: How do we tell a good result from a bad one? For example "exact match", "share of headings found", or "a reader gives a score from 1 to 5".
+  - type: textarea
+    id: why
+    attributes:
+      label: Who needs it, and why?
+      description: Your project or organization, and how the results would help.
+  - type: textarea
+    id: help
+    attributes:
+      label: Can you help?
+      description: For example with test material, writing or checking answers, or reviewing.

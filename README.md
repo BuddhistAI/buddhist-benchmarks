@@ -7,6 +7,8 @@ Shared tasks, test data, scorers, and leaderboards that rank **AI models and ski
 - **What each task is (definitions, examples, edge cases):** the [BuddhistAI knowledge base](https://buddhistai.github.io/knowledge-base/), which also holds experiment reports
 - **What is measured, and what is missing:** [STATE.md](./STATE.md)
 - **Score your own tool or model:** [SUBMIT.md](./SUBMIT.md)
+- **Suggest a new benchmark:** the [Propose a benchmark form](https://github.com/BuddhistAI/buddhist-benchmarks/issues/new?template=propose-benchmark.yml). Every proposal is tracked on the [Benchmarks board](https://github.com/orgs/BuddhistAI/projects/2), from "Proposed" to "Live".
+- **Need AI for a task that has no benchmark yet?** [Request an AI solution](https://github.com/BuddhistAI/buddhist-skills/issues/new?template=request.yml).
 
 ## Layout
 

@@ -1,0 +1,11 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Submit a model, skill or tool to a leaderboard
+    url: https://github.com/BuddhistAI/buddhist-benchmarks/blob/main/SUBMIT.md
+    about: How to have your AI solution measured on an existing benchmark.
+  - name: Request an AI solution for a task
+    url: https://github.com/BuddhistAI/buddhist-skills/issues/new?template=request.yml
+    about: Need AI for a Buddhist task that nothing covers yet? Tell us.
+  - name: Benchmarks board
+    url: https://github.com/orgs/BuddhistAI/projects/2
+    about: See every benchmark from proposal to live.
