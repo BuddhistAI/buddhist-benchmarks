@@ -70,8 +70,8 @@ Every leaderboard shows what a skill costs to run, so people can weigh score aga
 
 Two picks are shown on every leaderboard, among shippable skills (not `reference` or `baseline`) on the latest data version:
 
-- **Best overall:** the highest headline score, whatever it costs.
-- **Best value:** the highest headline score among options that cost at most 20% as much as the best overall.
+- **Top performance:** the highest headline score, whatever it costs.
+- **Best value:** the highest headline score among options that cost at most 20% as much as the top performance.
 
 Costs marked ≈ are estimates: the first TOC runs did not log tokens, so toc-extraction-tibetan `scripts/estimate_usage.py` counted them from the exact prompts and the stored outputs. New results must log real token counts (`usage.estimated: false`).
 

@@ -13,10 +13,10 @@ Best skill (installed from buddhist-skills): [`toc-extraction` skill](https://gi
 
 Data set [`tasks/toc-extraction/data/bo/v2/`](https://github.com/BuddhistAI/buddhist-benchmarks/tree/toc-extraction/bo%402.0.0/tasks/toc-extraction/data/bo/v2) at tag `toc-extraction/bo@2.0.0`: 85 items; 76 same book, 9 held out book; scorer 2.0.0. Find the sa-bcad outline headings in passages of Tibetan commentary whose formatting and line breaks were stripped, with their nesting level and start position.
 
-- **Best overall:** TOC extraction (sa-bcad method) 1.0.0 on Claude Sonnet 5.5: 0.962, ≈$1.20 per 100 pages.
-- **Best value:** TOC extraction (GEPA-optimized) 1.0.0 on Claude Haiku 5.5: 0.824, ≈$0.050 per 100 pages, 24× cheaper than best overall.
+- **Top performance:** TOC extraction (sa-bcad method) 1.0.0 on Claude Sonnet 5.5: 0.962, ≈$1.20 per 100 pages.
+- **Best value:** TOC extraction (GEPA-optimized) 1.0.0 on Claude Haiku 5.5: 0.824, ≈$0.050 per 100 pages, 24× cheaper than top performance.
 
-Cost is the API bill to run the skill on 100 pages of text (a page = 1,500 characters of input), at list prices from https://www.anthropic.com/pricing as of 2026-11-03: Claude Haiku 5.5 $0.1 in / $0.5 out per million tokens; Claude Sonnet 5.5 $2 in / $10 out per million tokens. No prompt caching or batch discount. ≈ marks estimates: these runs did not log tokens, so tokens were counted from the exact prompts and stored outputs. Best value is the top score among options costing at most 20% of the best overall.
+Cost is the API bill to run the skill on 100 pages of text (a page = 1,500 characters of input), at list prices from https://www.anthropic.com/pricing as of 2026-11-03: Claude Haiku 5.5 $0.1 in / $0.5 out per million tokens; Claude Sonnet 5.5 $2 in / $10 out per million tokens. No prompt caching or batch discount. ≈ marks estimates: these runs did not log tokens, so tokens were counted from the exact prompts and stored outputs. Best value is the top score among options costing at most 20% of the top performance.
 
 ### Claude Haiku 5.5 (`claude-haiku-5-5`)
 
