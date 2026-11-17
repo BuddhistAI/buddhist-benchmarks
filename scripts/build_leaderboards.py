@@ -523,8 +523,8 @@ def site_index(index, boards, models, summaries, bench, external=()):
     chips = ''.join(f'<li title="{e(t["summary"])}">{e(t["title"])}</li>' for t in planned)
     body = f'''
 <section class="hero">
-<h1>Skill leaderboards</h1>
-<p class="lede">AI skills for Buddhist tasks, ranked on open benchmarks. The top shippable skill for each task and language is the one people install from <a href="https://github.com/BuddhistAI/buddhist-skills">buddhist-skills</a>.</p>
+<h1>Leaderboards</h1>
+<p class="lede">AI models and skills for Buddhist tasks, ranked on open benchmarks. Each task board compares skills across models, with every model also tested on its own (&ldquo;No skill&rdquo;); BuddhistBench ranks models on Buddhist knowledge. The top shippable skill for each task and language is the one people install from <a href="https://github.com/BuddhistAI/buddhist-skills">buddhist-skills</a>.</p>
 <ul class="stats">
 <li><b>{len(boards)}</b> leaderboard{"s" if len(boards) != 1 else ""}</li>
 <li><b>{n_skills}</b> skills</li>
@@ -551,7 +551,7 @@ def site_index(index, boards, models, summaries, bench, external=()):
 <p class="muted small">Want to add a skill or a test set? See <a href="{REPO}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
 </section>
 '''
-    return page('BuddhistAI Leaderboards', body, 0, 'skills', 'Leaderboards for AI skills on Buddhist tasks.')
+    return page('BuddhistAI Leaderboards', body, 0, 'skills', 'Leaderboards ranking AI models and skills on Buddhist tasks.')
 
 LANGS = {'bo': 'Tibetan', 'sa': 'Sanskrit', 'pi': 'Pali', 'lzh': 'Classical Chinese', 'en': 'English'}
 
