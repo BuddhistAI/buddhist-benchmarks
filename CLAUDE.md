@@ -1,5 +1,16 @@
 # Notes for agents working in this repo
 
+## Start here (every BuddhistAI repo)
+
+- Read the maintainer handbook first: https://buddhistai.github.io/knowledge-base/handbook/ (source: BuddhistAI/knowledge-base `handbook/`). Follow its rules and conventions.
+- Check the Development board for cards assigned to you: https://github.com/orgs/BuddhistAI/projects/3. Status and next steps: `handbook/status.md`.
+- Rules: plain English for non-native readers, no idioms. "Buddhist tasks", not only texts. "Top performance" and "Best value". Neutral credits: WeBuddhist is one contributor among others. Never invent data, scores, votes or links. Never edit generated files by hand.
+- buddhist-benchmarks stays clean (short `result.json`, outputs, scores). Provenance records (`buddhistai/provenance@1`) live in the skill's own repo.
+- When you change something the handbook describes, update the handbook in the same pull request.
+- This repo: task benchmarks, scorers, results and the leaderboard site. Run `python3 scripts/build_leaderboards.py`, then `python3 scripts/check.py`.
+
+## This repo
+
 - Organized by task, then language: `tasks/<task>/data/<lang-code>/<version>/`, each holding one standard `test.jsonl` (`id`, `input`, `target`, `metadata`) and a Hugging Face dataset-card README (template: `tasks/toc-extraction/data/bo/v2/`). Task IDs live in `tasks/index.json`; language codes come from buddhist-skills `languages.json`.
 - One scorer per task, shared by every language. Language-specific normalization goes inside the scorer, keyed by language code.
 - Data sets are semver-versioned (VERSIONING.md): adding items is minor, fixing references is patch, both in place in `v<major>/` with a README version bump and a task CHANGELOG entry; scorer or format changes are major and get a new `v<major>/` folder (older majors live only at their tag). Never change items or references without bumping the version.
