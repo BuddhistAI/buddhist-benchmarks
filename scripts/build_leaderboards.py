@@ -524,7 +524,7 @@ def site_index(index, boards, models, summaries, bench, external=()):
     body = f'''
 <section class="hero">
 <h1>Skill leaderboards</h1>
-<p class="lede">Agent skills for Buddhist texts, ranked on open benchmarks. The top shippable skill for each task and language is the one people install from <a href="https://github.com/BuddhistAI/buddhist-skills">buddhist-skills</a>.</p>
+<p class="lede">AI skills for Buddhist tasks, ranked on open benchmarks. The top shippable skill for each task and language is the one people install from <a href="https://github.com/BuddhistAI/buddhist-skills">buddhist-skills</a>.</p>
 <ul class="stats">
 <li><b>{len(boards)}</b> leaderboard{"s" if len(boards) != 1 else ""}</li>
 <li><b>{n_skills}</b> skills</li>
@@ -551,7 +551,7 @@ def site_index(index, boards, models, summaries, bench, external=()):
 <p class="muted small">Want to add a skill or a test set? See <a href="{REPO}/blob/main/CONTRIBUTING.md">CONTRIBUTING.md</a>.</p>
 </section>
 '''
-    return page('BuddhistAI Leaderboards', body, 0, 'skills', 'Leaderboards for agent skills that work on Buddhist texts.')
+    return page('BuddhistAI Leaderboards', body, 0, 'skills', 'Leaderboards for AI skills on Buddhist tasks.')
 
 LANGS = {'bo': 'Tibetan', 'sa': 'Sanskrit', 'pi': 'Pali', 'lzh': 'Classical Chinese', 'en': 'English'}
 

@@ -1,6 +1,6 @@
 # Evaluate your solution
 
-Built a tool, a skill, a prompt or a model that works with Buddhist texts? Score it on an open benchmark here and it appears on the [leaderboard](https://buddhistai.github.io/buddhist-benchmarks/) next to everything else, with its score and cost. Anyone can submit; your code can stay in your own repo.
+Built a tool, a skill, a prompt or a model for a Buddhist task? Score it on an open benchmark here and it appears on the [leaderboard](https://buddhistai.github.io/buddhist-benchmarks/) next to everything else, with its score and cost. Anyone can submit; your code can stay in your own repo.
 
 ## 1. Pick a benchmark
 
