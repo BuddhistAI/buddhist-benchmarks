@@ -1,0 +1,23 @@
+name: egm
+
+# EGM checks for pull requests (BuddhistAI handbook: ux.md). The gate is free. The Goldfish
+# review runs only with the label `egm-review` and the secret ANTHROPIC_API_KEY.
+on:
+  pull_request:
+    types: [opened, edited, synchronize, reopened, labeled]
+
+permissions:
+  contents: read
+  pull-requests: write
+  issues: write
+  id-token: write
+
+jobs:
+  gate:
+    uses: BuddhistAI/knowledge-base/.github/workflows/egm-gate.yml@main
+    with:
+      paths: '^(site/|SUBMIT\.md|README\.md|CONTRIBUTING\.md|\.github/ISSUE_TEMPLATE/|scripts/build_leaderboards\.py)'
+  goldfish:
+    if: github.event.action == 'labeled' && github.event.label.name == 'egm-review'
+    uses: BuddhistAI/knowledge-base/.github/workflows/egm-goldfish.yml@main
+    secrets: inherit
