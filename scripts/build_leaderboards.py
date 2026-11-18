@@ -558,10 +558,12 @@ def site_index(index, boards, models, summaries, bench, external=()):
 '''
     return page('BuddhistAI Leaderboards', body, 0, 'skills', 'Leaderboards ranking AI models and skills on Buddhist tasks.')
 
-LANGS = {'bo': 'Tibetan', 'sa': 'Sanskrit', 'pi': 'Pali', 'lzh': 'Classical Chinese', 'en': 'English'}
+LANGS = {'bo': 'Tibetan', 'sa': 'Sanskrit', 'pi': 'Pali', 'lzh': 'Classical Chinese', 'en': 'English', 'fr': 'French'}
 
 
 def lang_name(code):
+    if '-' in code:  # a language pair, e.g. bo-fr for translation tasks
+        return ' → '.join(LANGS.get(c, c) for c in code.split('-'))
     return LANGS.get(code, code)
 
 
