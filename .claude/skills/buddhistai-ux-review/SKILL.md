@@ -43,6 +43,8 @@ Read the EGM `egm-review-loop` skill (`${CLAUDE_PLUGIN_ROOT}/skills/egm-review-l
 
 Tell each persona reviewer to use Mode REVIEW. The loop stops after two clean rounds in a row (no open Blocker or Major finding) or after 5 rounds.
 
+Ask the developer as little as possible. Pass every input above so EGM does not ask for it. Resolve findings yourself from the code, the knowledge base and the personas, and do not ask about findings one at a time (this overrides the EGM skills' one-question gates). At the end, ask only the product decisions that no source settles, in one short list with your recommendation for each.
+
 ## 4. Record the result
 
 Fill in the design's "Goldfish review" section: date, reviewers that ran, open findings and accepted risks. Set `state: reviewed`. Put a one-line summary in the pull request under "EGM review".
