@@ -106,7 +106,8 @@ if "--languages" in sys.argv:
     try:
         with urllib.request.urlopen(LANGUAGES_URL, timeout=20) as r:
             known = {l["code"] for l in json.load(r)["languages"]}
-        for code in sorted(codes_seen - known):
+        pair_parts = {p for c in codes_seen for p in c.split('-')}
+        for code in sorted(pair_parts - known):
             errors.append(f"language code {code!r} is not in buddhist-skills languages.json")
     except Exception as e:
         warnings.append(f"could not fetch languages.json ({e}); codes not checked")

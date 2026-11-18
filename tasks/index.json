@@ -9,7 +9,7 @@
     {"id": "text-translation-alignment", "status": "planned", "title": "Text-translation alignment", "summary": "Align a source text with its translation, segment by segment."},
     {"id": "text-commentary-alignment", "status": "planned", "title": "Text-commentary alignment", "summary": "Link each root text passage to the commentary passages that explain it."},
     {"id": "term-extraction", "status": "planned", "title": "Term extraction", "summary": "Propose glossary terms and their renderings from a source text and translation."},
-    {"id": "translation", "status": "planned", "title": "Translation", "summary": "Produce a draft translation."},
+    {"id": "translation", "status": "planned", "title": "Translation", "summary": "Produce a draft translation. First set in preparation: Tibetan colophons into French, scored by meaning units."},
     {"id": "translation-review", "status": "planned", "title": "Translation review", "summary": "Check a translation against its source, the glossary, and the style guide."},
     {"id": "ocr", "status": "planned", "title": "OCR", "summary": "Turn an image of a page into Unicode text. Tibetan is ranked on BDRC's external leaderboard."},
     {"id": "spell-check", "status": "planned", "title": "Spell check", "summary": "Flag and correct misspelled words in a source text or a translation."},
