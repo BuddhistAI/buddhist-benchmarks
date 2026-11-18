@@ -66,7 +66,7 @@ Every data set is one standard JSONL file: each line is an item with `id`, `inpu
 
 3. Add a run folder with a `result.json` ([docs/results.md](./docs/results.md)) and open a PR. The leaderboards rebuild themselves.
 
-The skill can live anywhere: buddhist-skills `drafts/`, a fork, or another organization's repo. The leaderboard cites its exact commit.
+The skill can live anywhere: its task's workshop repo (for example [toc-extraction-tibetan](https://github.com/BuddhistAI/toc-extraction-tibetan)), a fork, or another organization's repo. The leaderboard cites its exact commit.
 
 ## On Hugging Face
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Run one arm of the Tibetan→French translation comparison and log real token counts.
 
-python3 harness/run.py --arm units --skill ../buddhist-skills/drafts/translation-tibetan-to-french/drupchen-method-units-v1 \
+python3 harness/run.py --arm units --skill ../../../translation-tibetan-to-french/variants/drupchen-method-units-v1 \
     --data data/bo-fr/v1/test.jsonl --model claude-opus-5-5 --out runs/<run-id>/repeat-1
 
 Arms:
